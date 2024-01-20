@@ -34,4 +34,4 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                    <h1 class="mt-4 bg-success text-light text-center p-2 rounded-2">Halaman <?= $judul ?></h1>
+                    <h1 class="mt-4 text-light text-center p-2 rounded-2 judul">Halaman <?= $judul ?></h1>
