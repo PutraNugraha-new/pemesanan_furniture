@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root{
     --main-color:#176B87;
     --second-color:#23303E;
@@ -61,18 +65,23 @@
     z-index: 99;
     position: relative;
     background-color: transparent;
-    border: 2px solid  #fff;
+    border: 3px solid  #fff;
     border-radius: 50%;
-    top: 10em;
+    top: 11em;
+    padding: 20px; 
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
 }
-.jumbotron .btn i{
-    color: #fff;
+.jumbotron .btn .panah{
+    color: white !important;
+    font-size: 40px;
+    transition: color 0.3s;
 }
 .jumbotron .btn:hover{
     background-color: #fff;
 }
-.jumbotron .btn i:hover{
-    color: #000;
+.jumbotron .btn:hover .panah{
+    color: #000 !important;
 }
 
 
@@ -97,8 +106,6 @@
     width: 80%;
     /* display: block; */
 }
-
-
 .konten .kanan{
     padding: 1.25em;
 }
@@ -149,5 +156,65 @@
 .konten-2 .kanan img{
     width: 100%;
     border-radius: 10px;
+    /* margin-bottom: 2em; */
 
+}
+
+.konten-produk{
+    background-image: url('../images/samples/bg.jpg');
+    margin: 0;
+    padding-bottom: 2em;
+}
+
+.konten-produk h1{
+    text-align: center;
+    margin: 3em auto 3em auto;
+    font-family: var(--main-font);
+}
+
+.konten-produk .isi-produk{
+    border-top: 2px solid red;
+    width: 80%;
+}
+
+.konten-produk .img-produk{
+    width: 80%;
+    margin-left: 5em;
+}
+
+.konten-produk .img-produk img{
+    width: 100%;
+    border-radius: 5%;
+}
+
+.konten-produk .garis{
+    margin-left: 5em;
+    margin-bottom: 2em;
+    margin-top: 2em;
+    border: 1px solid var(--second-color);
+    width: 90%;
+}
+
+.konten-produk p{
+    font-size: 30pt;
+    font-family: var(--main-font);
+}
+.konten-produk h4{
+    font-size: 30pt;
+    margin-left: 0;
+}
+
+.konten-produk .btn{
+    background-color: transparent;
+    border: 1px solid var(--second-color);
+    padding: 20px;
+    border-radius: 50%;
+}
+
+footer{
+    background-color: #f2f2f2;
+    /* margin: 2em 0 0 0; */
+    padding: 1.25em;
+    text-align: center;
+    font-size: 12pt;
 }

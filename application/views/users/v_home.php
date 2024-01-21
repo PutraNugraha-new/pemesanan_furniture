@@ -53,16 +53,16 @@
                 <p class="lead text-light">Ruang Anda, Karya Kami: Penuhi Keindahan Rumah Anda dengan Furniture Berkualitas Tinggi.</p>
             </div>
             <div class="col-md-2">
-                <button class="btn">
-                    <i class="fa-solid fa-arrow-down"></i>
-                </button>
+                <a href="#konten" class="btn">
+                    <i class="fa-solid fa-arrow-down panah"></i>
+                </a>
             </div>
         </div>
     </div>
 
 
     <!-- konten -->
-    <div class="container-fluid konten m-0">
+    <div class="container-fluid konten m-0" id="konten">
         <div class="row">
             <div class="col-md-5 kiri">
                 <div class="img-container-kiri">
@@ -99,13 +99,82 @@
                         </h2>
                     </div>
                     <div class="col-md-12 garis"></div>
-                    <div class="col-md-12 mt-5 p-0">
+                    <div class="col-md-12 mt-5 p-0 mb-5">
                         <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid bangku m-0" alt="Bangku jpg">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="container-fluid konten-produk">
+        <div class="row">
+            <h1>All Collection</h1>
+            <div class="col-md-12">
+                <div class="row my-3">
+                    <div class="col-md-10">
+                        <div class="garis"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img-produk">
+                            <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <p>1.  Sofa</p>
+                        <h4>Rp.  00000</h4>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                        <a href="#" class="btn">
+                            <i class="fa-solid fa-arrow-right panah"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-10">
+                        <div class="garis"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img-produk">
+                            <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <p>1.  Sofa</p>
+                        <h4>Rp.  00000</h4>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                        <a href="#" class="btn">
+                            <i class="fa-solid fa-arrow-right panah"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col-md-10">
+                        <div class="garis"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img-produk">
+                            <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <p>1.  Sofa</p>
+                        <h4>Rp.  00000</h4>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-center">
+                        <a href="#" class="btn">
+                            <i class="fa-solid fa-arrow-right panah"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Copyright 2024-Blesing Home Art
+    </footer>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
