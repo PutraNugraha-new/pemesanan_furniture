@@ -19,8 +19,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto"> <!-- Menambahkan class ml-auto di sini -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Beranda</a>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="#">Produk</a>
@@ -46,11 +46,66 @@
     </nav>
 
     <!-- jumbotron -->
-    <div class="jumbotron">
-        <h1 class="display-4">Blessing Home Art</h1>
-        <p class="lead text-light">Ruang Anda, Karya Kami: Penuhi Keindahan Rumah Anda dengan Furniture Berkualitas Tinggi.</p>
+    <div class="jumbotron m-0">
+        <div class="row">
+            <div class="col-md-10">
+                <h1 class="display-4">Blessing Home Art</h1>
+                <p class="lead text-light">Ruang Anda, Karya Kami: Penuhi Keindahan Rumah Anda dengan Furniture Berkualitas Tinggi.</p>
+            </div>
+            <div class="col-md-2">
+                <button class="btn">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
+
+    <!-- konten -->
+    <div class="container-fluid konten m-0">
+        <div class="row">
+            <div class="col-md-5 kiri">
+                <div class="img-container-kiri">
+                    <img src="<?= base_url() ?>assets/images/samples/bangku-border.png" class="img-fluid bangku" alt="Bangku jpg">
+                </div>
+            </div>
+            <div class="col-md-6 kanan">
+                <div class="row d-flex justify-content-end">
+                    <div class="img-container-kanan">
+                        <div class="col-md-12 justify-content-end d-flex">
+                            <img src="<?= base_url() ?>assets/images/samples/bangku2.png" class="img-fluid" alt="Bangku">
+                        </div>
+                        <div class="col-md-10">
+                            <h3>About Blesing Home Art</h3>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit ab ex dolores qui fugiat velit enim, amet, eos sunt accusamus maiores unde perspiciatis itaque iste suscipit inventore sit exercitationem reprehenderit beatae adipisci reiciendis nobis nesciunt quod illo! Assumenda, nihil qui, itaque quis quam tempore maxime numquam vel consequuntur explicabo optio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid konten-2">
+        <div class="row">
+            <div class="col-md-3 kiri d-flex align-content-center flex-column">
+                <h3>Drawing Room</h3>
+                <h4>Modern Lightwight furniture  </h4>
+            </div>
+            <div class="col-md-7 kanan">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <h2>Elegent Quality & <br>
+                            top notch at everycorner
+                        </h2>
+                    </div>
+                    <div class="col-md-12 garis"></div>
+                    <div class="col-md-12 mt-5 p-0">
+                        <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid bangku m-0" alt="Bangku jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
