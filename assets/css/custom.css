@@ -1,0 +1,8 @@
+:root{
+    --main-color :#9DBC98;
+    --second-color :#638889;
+}
+
+.judul {
+    background-color: var(--main-color);
+}
