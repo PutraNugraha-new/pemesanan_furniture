@@ -17,4 +17,18 @@ class Welcome extends CI_Controller {
 		);
 		$this->load->view('users/layout/v_wrapper', $data, FALSE);
 	}
+
+	public function pemesanan(){
+		$data = array(
+			'isi'=> 'users/v_pemesanan'
+		);
+		$this->load->view('users/layout/v_wrapper', $data, FALSE);
+	}
+
+	public function riwayat(){
+		$data = array(
+			'isi' => 'users/v_riwayat'
+		);
+		$this->load->view('users/layout/v_wrapper', $data, FalSE);
+	}
 }

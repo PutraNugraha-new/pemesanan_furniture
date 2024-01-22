@@ -9,23 +9,35 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto"> <!-- Menambahkan class ml-auto di sini -->
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= base_url() ?>">Beranda</a>
+                    <a class="nav-link text-light" href="<?= base_url() ?>">
+                        <i class="fa-solid fa-house"></i>
+                        Beranda
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/produk">Produk</a>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/produk">
+                        <i class="fa-solid fa-brush"></i>
+                        Produk
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Pemesanan</a>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/pemesanan">
+                        <i class="fa-solid fa-list-alt"></i>
+                        Pemesanan
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Riwayat</a>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/riwayat">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Riwayat
+                    </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-2">
                     <a class="nav-link text-light" href="#">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-2">
                     <a class="nav-link text-light" href="#">
                         <i class="fa-solid fa-user"></i>
                     </a>
