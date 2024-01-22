@@ -62,23 +62,21 @@
 
 
     <!-- konten -->
-    <div class="container-fluid konten m-0" id="konten">
-        <div class="row">
-            <div class="col-md-5 kiri">
+    <div class="container-fluid konten m-0  bg-danger" id="konten">
+        <div class="row d-flex">
+            <div class="col-md-5 col-sm-12 kiri order-md-0 order-1">
                 <div class="img-container-kiri">
                     <img src="<?= base_url() ?>assets/images/samples/bangku-border.png" class="img-fluid bangku" alt="Bangku jpg">
                 </div>
             </div>
-            <div class="col-md-6 kanan">
-                <div class="row d-flex justify-content-end">
-                    <div class="img-container-kanan">
-                        <div class="col-md-12 justify-content-end d-flex">
-                            <img src="<?= base_url() ?>assets/images/samples/bangku2.png" class="img-fluid" alt="Bangku">
-                        </div>
-                        <div class="col-md-10">
-                            <h3>About Blesing Home Art</h3>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit ab ex dolores qui fugiat velit enim, amet, eos sunt accusamus maiores unde perspiciatis itaque iste suscipit inventore sit exercitationem reprehenderit beatae adipisci reiciendis nobis nesciunt quod illo! Assumenda, nihil qui, itaque quis quam tempore maxime numquam vel consequuntur explicabo optio.</p>
-                        </div>
+            <div class="col-md-6 kanan order-md-1 order-0 ">
+                <div class="row">
+                    <div class="col-md-12 justify-content-md-end d-flex">
+                        <img src="<?= base_url() ?>assets/images/samples/bangku2.png" class="img-fluid" alt="Bangku">
+                    </div>
+                    <div class="col-md-10 ">
+                        <h3>About Blesing Home Art</h3>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit ab ex dolores qui fugiat velit enim, amet, eos sunt accusamus maiores unde perspiciatis itaque iste suscipit inventore sit exercitationem reprehenderit beatae adipisci reiciendis nobis nesciunt quod illo! Assumenda, nihil qui, itaque quis quam tempore maxime numquam vel consequuntur explicabo optio.</p>
                     </div>
                 </div>
             </div>
@@ -98,8 +96,8 @@
                             top notch at everycorner
                         </h2>
                     </div>
-                    <div class="col-md-12 garis"></div>
-                    <div class="col-md-12 mt-5 p-0 mb-5">
+                    <div class="col-md-12 garis mx-auto"></div>
+                    <div class="col-md-12 mt-5 p-0 mb-5 d-flex justify-content-center">
                         <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid bangku m-0" alt="Bangku jpg">
                     </div>
                 </div>
@@ -115,13 +113,13 @@
                     <div class="col-md-10">
                         <div class="garis"></div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="img-produk">
-                            <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
-                        </div>
+                    <div class="col-md-2 img-produk">
+                        <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
                     </div>
-                    <div class="col-md-5">
-                        <p>1.  Sofa</p>
+                    <!-- <div class="col-md-4">
+                    </div> -->
+                    <div class="col-md-6 ms-0 isi-produk">
+                        <p>1.Sofa</p>
                         <h4>Rp.  00000</h4>
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
@@ -134,13 +132,13 @@
                     <div class="col-md-10">
                         <div class="garis"></div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="img-produk">
-                            <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
-                        </div>
+                    <div class="col-md-2 img-produk">
+                        <img src="<?= base_url() ?>assets/images/samples/bangku-3.jpg" class="img-fluid m-0" alt="Bangku jpg">
                     </div>
-                    <div class="col-md-5">
-                        <p>1.  Sofa</p>
+                    <!-- <div class="col-md-4">
+                    </div> -->
+                    <div class="col-md-6 ms-0 isi-produk">
+                        <p>1.Bangku</p>
                         <h4>Rp.  00000</h4>
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
@@ -153,13 +151,13 @@
                     <div class="col-md-10">
                         <div class="garis"></div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="img-produk">
-                            <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
-                        </div>
+                    <div class="col-md-2 img-produk">
+                        <img src="<?= base_url() ?>assets/images/samples/meja.jpg" class="img-fluid m-0" alt="Bangku jpg">
                     </div>
-                    <div class="col-md-5">
-                        <p>1.  Sofa</p>
+                    <!-- <div class="col-md-4">
+                    </div> -->
+                    <div class="col-md-6 ms-0 isi-produk">
+                        <p>1.Meja</p>
                         <h4>Rp.  00000</h4>
                     </div>
                     <div class="col-md-2 d-flex align-items-center">

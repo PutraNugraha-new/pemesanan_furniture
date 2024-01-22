@@ -172,18 +172,17 @@ html {
     font-family: var(--main-font);
 }
 
-.konten-produk .isi-produk{
-    border-top: 2px solid red;
-    width: 80%;
-}
-
 .konten-produk .img-produk{
-    width: 80%;
+    /* width: 80%; */
+    /* height: 300px; */
+    width: fit-content;
     margin-left: 5em;
+    padding: 0;
 }
 
 .konten-produk .img-produk img{
     width: 100%;
+    /* height: 200px; */
     border-radius: 5%;
 }
 
@@ -194,13 +193,16 @@ html {
     border: 1px solid var(--second-color);
     width: 90%;
 }
-
+.konten-produk .isi-produk{
+    margin-left: 2em;
+}
 .konten-produk p{
-    font-size: 30pt;
+    font-size: 20pt;
     font-family: var(--main-font);
 }
 .konten-produk h4{
-    font-size: 30pt;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20pt;
     margin-left: 0;
 }
 
@@ -210,6 +212,10 @@ html {
     padding: 20px;
     border-radius: 50%;
 }
+.konten-produk .btn:hover{
+    background-color: var(--second-color);
+    color: #fff;
+}
 
 footer{
     background-color: #f2f2f2;
@@ -217,4 +223,123 @@ footer{
     padding: 1.25em;
     text-align: center;
     font-size: 12pt;
+}
+
+
+/* responsive mode */
+
+@media screen and (max-width: 767px) {
+    .jumbotron h1.display-4{
+        font-size: 25pt;
+        text-align: center;
+    }
+    .jumbotron p.lead{
+       font-size: 15pt; /* Tambahkan z-index agar elemen teks muncul di atas overlay */
+        text-align: justify;
+    }
+    .jumbotron .col-md-2{
+        margin-top: 1.5em;
+        display: flex;
+        justify-content: center;
+    }
+    .jumbotron .btn{
+        top: 0;
+        padding: 15px;
+    }
+    .jumbotron .btn .panah{
+        font-size: 12pt;
+    }
+
+    .konten .kiri {
+        margin-top: 30px;
+        margin-left: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .konten .kanan{
+        padding: 0em;
+        width: 96%;
+    }
+    .konten .kanan .img-fluid{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .konten .kanan h3{
+        font-size: 30pt;
+        text-align: center;
+    }
+    .konten .kanan p{
+        font-size: 13pt;
+        text-align: justify;
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+
+    .konten .kanan .col-md-12, .col-md-10{
+        width: 97%;
+    }
+
+
+    .konten-2{
+        padding-top: 2em;
+    }
+
+    .konten-2 .kiri h3{
+        font-size: 20pt;
+        text-align: center;
+        /* margin-left: 2em; */
+    }
+    .konten-2 .kiri h4{
+        color: #8c8c8c;
+        font-size: 15pt;
+        text-align: center;
+    }
+    .konten-2  .kiri h3,h4{
+        margin-top: 0;
+        margin-left: 0;
+    }
+    
+    .konten-2 .kanan h2{
+        margin-top: 2em;
+        font-size: 25pt;
+        text-align: center;
+    }
+
+    .konten-2 .kanan .bangku{
+        margin-left: 2em;
+        width: 90%;
+        border-radius: 10px;
+        /* margin-bottom: 2em; */
+    }
+    
+    .konten-produk .img-produk img{
+        width: 80%;
+    }
+    
+    .konten-produk .garis{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .konten-produk .isi-produk{
+        margin-left: 0em;
+    }
+    .konten-produk p{
+        font-size: 20pt;
+        text-align: center;
+        margin-top: 1em;
+    }
+    .konten-produk h4{
+        text-align: center;
+    }
+    
+    .konten-produk .btn{
+        margin-top: 1em;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .konten-produk .btn:hover{
+        background-color: var(--second-color);
+        color: #fff;
+    }
+
 }
