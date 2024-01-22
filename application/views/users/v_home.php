@@ -1,49 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="<?= base_url() ?>assets/user/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <title>Blesing Home Art</title>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand text-light" href="#">
-            Blessing Home Art <br>
-            <span>Furniture</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto"> <!-- Menambahkan class ml-auto di sini -->
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Produk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Pemesanan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Riwayat</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
     <!-- jumbotron -->
     <div class="jumbotron m-0">
@@ -169,13 +123,3 @@
             </div>
         </div>
     </div>
-
-    <footer>
-        Copyright 2024-Blesing Home Art
-    </footer>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
