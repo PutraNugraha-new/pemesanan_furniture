@@ -31,4 +31,11 @@ class Welcome extends CI_Controller {
 		);
 		$this->load->view('users/layout/v_wrapper', $data, FalSE);
 	}
+
+	public function profile(){
+		$data =array(
+			'isi' => 'users/v_profile'
+		);
+		$this->load->view('users/layout/v_wrapper', $data, FALSE);
+	}
 }

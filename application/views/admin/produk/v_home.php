@@ -1,16 +1,16 @@
 <h3>Input Produk</h3>
 <div class="card">
     <div class="card-body">
-        <?php echo form_open(site_url().'produk'); ?>
+        <?php echo form_open(site_url().'produk/add'); ?>
             <div class="row">
                 <div class="col-md-4">
-                    <label for="nama_produk">Nama Produk</label>
-                    <input type="text" class="form-control" placeholder="Nama Produk" name="nama_produk" required>
-                    <?php echo form_error('nama_produk', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                    <label for="nama_brg">Nama Produk</label>
+                    <input type="text" class="form-control" placeholder="Nama Produk" name="nama_brg" required>
+                    <?php echo form_error('nama_brg', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
                 <div class="col-md-4">
-                    <label for="nama_produk">Jenis Produk</label>
-                    <select name="jenis_produk" id="jenis_produk" class="form-control" required>
+                    <label for="jenis_brg">Jenis Produk</label>
+                    <select name="jenis_brg" id="jenis_brg" class="form-control" required>
                         <option value="">Jenis Produk</option>
                         <option value="Kitchen Set">Kitchen Set</option>
                         <option value="Backdrop Tv">Backdrop Tv</option>
@@ -20,17 +20,36 @@
                         <option value="Meja Bar">Meja Bar</option>
                         <option value="Kursi Sofa">Kursi Sofa</option>
                     </select>
-                    <?php echo form_error('nama_produk', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                    <?php echo form_error('jenis_brg', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
                 <div class="col-md-2">
                     <label for="jumlah">Jumlah</label>
-                    <input type="number" class="form-control" name="jumlah" placeholder="012345.." required>
+                    <input type="number" class="form-control" name="stok" placeholder="012345.." required>
+                    <?php echo form_error('jumlah', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="harga">Harga</label>
+                    <input type="number" class="form-control" name="harga" placeholder="Harga Satuan/set" required>
+                    <?php echo form_error('harga', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-8">
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea name="deskripsi" id="deskripsi" class="form-control" cols="30" rows="5"></textarea>
+                    <?php echo form_error('deskripsi', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                     <?php echo form_submit(array('value'=>'Tambah Produk', 'class'=>'btn btn-success mx-auto my-2')); ?>
                 </div>
             </div>
         <?php echo form_close(); ?>
     </div>
 </div>
+<?php if ($this->session->flashdata('success_message')): ?>
+    <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
+        <?= $this->session->flashdata('success_message'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 <div class="card mt-3">
     <div class="card-header">
         <h4>Produk</h4>
@@ -42,9 +61,9 @@
                     <th>Nor</th>
                     <th>Nama Produk</th>
                     <th>Jenis Produk</th>
-                    <th>Jumlah</th>
-                    <th>Harga Sementara</th>
-                    <th>Harga final</th>
+                    <th>Stok</th>
+                    <th>Harga</th>
+                    <th>Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -53,20 +72,21 @@
                     <th>Nor</th>
                     <th>Nama Produk</th>
                     <th>Jenis Produk</th>
-                    <th>Jumlah</th>
-                    <th>Harga Sementara</th>
-                    <th>Harga final</th>
+                    <th>Stok</th>
+                    <th>Harga</th>
+                    <th>Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
             </tfoot>
             <tbody>
+                <?php $no=1; foreach($produk as $data): ?>
                 <tr>
-                    <td>1</td>
-                    <td>Kitchen set Example 1</td>
-                    <td>Kitchen Set</td>
-                    <td>1 Set</td>
-                    <td>Rp. 0</td>
-                    <td>Rp. 0</td>
+                    <td><?= $no; ?></td>
+                    <td><?= $data->nama_brg ?></td>
+                    <td><?= $data->jenis_brg ?></td>
+                    <td><?= $data->stok ?></td>
+                    <td><?= $data->harga ?></td>
+                    <td><?= $data->deskripsi ?></td>
                     <td>
                         <a href="#" data-bs-toggle="modal" data-id="2" data-bs-target="#modalproduk" class="btn tampilModalUbah btn-primary p-1" data-toggle="tooltip" data-placement="bottom" title="Edit Data">
                             <i class="fa-solid fa-pencil"></i>
@@ -77,6 +97,7 @@
                         </a>
                     </td>
                 </tr>
+                <?php $no++; endforeach; ?>
             </tbody>
         </table>
     </div>
