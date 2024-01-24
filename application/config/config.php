@@ -516,6 +516,10 @@ $config['time_reference'] = 'local';
 */
 $config['rewrite_short_tags'] = FALSE;
 
+$config['roles'] = array('4', '1');
+$config['status'] = array('pending', 'approved');
+$config['banned_users'] = array('unban', 'ban');
+
 /*
 |--------------------------------------------------------------------------
 | Reverse Proxy IPs

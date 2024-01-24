@@ -12,30 +12,30 @@
                         <div class="form-group row">
                             <label for="username" class="col-sm-4 col-form-label">Username</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="username">
+                                <input type="text" class="form-control" id="username" value="<?= $datauser['email'] ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nama" class="col-sm-4 col-form-label">Nama Pengguna</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="nama">
+                                <input type="text" class="form-control" id="nama" value="<?= $datauser['first_name'] ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="no_hp" class="col-sm-4 col-form-label">No HP</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="no_hp">
+                                <input type="text" class="form-control" id="no_hp" value="<?= $datauser['no_hp'] ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="alamat" class="col-sm-4 col-form-label">Alamat</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="alamat">
+                                <input type="text" class="form-control" id="alamat" value="<?= $datauser['alamat'] ?>" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Update Data</button>
+                            <!-- <button type="submit" class="btn btn-primary">Update Data</button> -->
                             </div>
                         </div>
                     </form>

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+.container {
+    margin-top: 5em !important;
+    margin-bottom: 6.25em !important;
+}
+.login{
+    width: 40%;
+}
+.login p:nth-child(1), p:nth-child(2){
+    font-size: 20pt;
+}
+
+.login p:nth-child(2){
+    font-family: "Lora", serif;
+}
+.login .btn {
+    border-radius: 10px;
+}
