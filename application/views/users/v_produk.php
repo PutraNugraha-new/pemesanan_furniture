@@ -1,7 +1,6 @@
 <div class="container">
-    <div class="row my-5 mx-3">
-        <p>Filter :</p>
-        <div class="col-md-2 col-5">
+    <div class="row mt-4 d-flex justify-content-center">
+        <div class="col-md-4 col-5">
             <select name="kategori" id="kategori" class="form-control">
                 <option value="">Kategori</option>
                 <option value="Kitchen">Kitchen</option>
@@ -10,21 +9,27 @@
             </select>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center text-danger">REKOMENDASI</h1>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <?php for ($i=1; $i <= 12  ; $i++):?>
-            <div class="col-md-4 col-12 my-2">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <img src="https://source.unsplash.com/random" style="width:500px;height:500px;" class="img-fluid rounded-3" alt="Bangku">
-                        <p class="text-center mt-2">Example 1</p>
+    <div class="row my-3">
+        <?php foreach($produk as $data):?>
+            <div class="col-md-3 col-12 my-2">
+                <a href="">
+                    <div class="card shadow rounded-1">
+                        <div class="card-body">
+                            <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" style="width:200px;height:200px;" class="img-fluid rounded-3" alt="Bangku">                
+                        </div>
+                        <div class="card-footer">
+                            <p class="mt-2 d-flex justify-content-between">
+                                <span class="text-primary font-weight-bold"><?= $data->nama_brg ?></span>
+                                <span class="text-dark">Rp.<?= $data->harga ?></span>
+                                <span class="text-dark">Stok: <?= $data->stok ?></span>
+                            </p>
+                            <a href="" class="text-dark">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-        <?php endfor; ?>
+        <?php endforeach; ?>
     </div>
 </div>

@@ -63,18 +63,19 @@
         <div class="row">
             <h1>All Collection</h1>
             <div class="col-md-12">
+                <?php foreach($produk as $data): ?>
                 <div class="row my-3">
                     <div class="col-md-10">
                         <div class="garis"></div>
                     </div>
                     <div class="col-md-2 img-produk">
-                        <img src="<?= base_url() ?>assets/images/samples/sofa-2.jpg" class="img-fluid m-0" alt="Bangku jpg">
+                        <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" class="img-fluid m-0" alt="Bangku jpg">
                     </div>
                     <!-- <div class="col-md-4">
                     </div> -->
                     <div class="col-md-6 ms-0 isi-produk">
-                        <p>1.Sofa</p>
-                        <h4>Rp.  00000</h4>
+                        <p><?= $data->nama_brg ?></p>
+                        <h4>Rp. <?= $data->harga ?></h4>
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
                         <a href="#" class="btn">
@@ -82,44 +83,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="row my-3">
-                    <div class="col-md-10">
-                        <div class="garis"></div>
-                    </div>
-                    <div class="col-md-2 img-produk">
-                        <img src="<?= base_url() ?>assets/images/samples/bangku-3.jpg" class="img-fluid m-0" alt="Bangku jpg">
-                    </div>
-                    <!-- <div class="col-md-4">
-                    </div> -->
-                    <div class="col-md-6 ms-0 isi-produk">
-                        <p>1.Bangku</p>
-                        <h4>Rp.  00000</h4>
-                    </div>
-                    <div class="col-md-2 d-flex align-items-center">
-                        <a href="#" class="btn">
-                            <i class="fa-solid fa-arrow-right panah"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col-md-10">
-                        <div class="garis"></div>
-                    </div>
-                    <div class="col-md-2 img-produk">
-                        <img src="<?= base_url() ?>assets/images/samples/meja.jpg" class="img-fluid m-0" alt="Bangku jpg">
-                    </div>
-                    <!-- <div class="col-md-4">
-                    </div> -->
-                    <div class="col-md-6 ms-0 isi-produk">
-                        <p>1.Meja</p>
-                        <h4>Rp.  00000</h4>
-                    </div>
-                    <div class="col-md-2 d-flex align-items-center">
-                        <a href="#" class="btn">
-                            <i class="fa-solid fa-arrow-right panah"></i>
-                        </a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
