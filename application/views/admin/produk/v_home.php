@@ -221,6 +221,7 @@
                     $('#harga').val(data.harga);
                     $('#deskripsi').val(data.deskripsi);
                     $('#previewImage').attr('src', './foto_produk/' + data.foto_brg);
+                    console.log(data)
                 }
             });
             // console.log(data);

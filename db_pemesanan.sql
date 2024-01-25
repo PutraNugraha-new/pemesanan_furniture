@@ -53,7 +53,7 @@ CREATE TABLE `tb_data` (
   `tgl_pemesanan` date DEFAULT NULL,
   `jenis_brg` varchar(10) DEFAULT NULL,
   `banyak_brg` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE `tb_detailpemesanan` (
   `kuantitas` int DEFAULT NULL,
   `harga_satuan` decimal(10,2) DEFAULT NULL,
   `subtotal` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,7 @@ CREATE TABLE `tb_keranjang` (
   `id_pelanggan` int NOT NULL,
   `id_produk` int NOT NULL,
   `kuntitas` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,7 @@ CREATE TABLE `tb_pelanggan` (
   `alamat` text,
   `no_hp` varchar(15) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ CREATE TABLE `tb_pemesanan` (
   `tgl_pemesanan` date DEFAULT NULL,
   `total_bayar` decimal(10,2) NOT NULL,
   `status_pemesanan` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -125,7 +125,7 @@ CREATE TABLE `tb_produk` (
   `harga` decimal(10,2) DEFAULT NULL,
   `stok` int DEFAULT NULL,
   `foto_brg` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_produk`

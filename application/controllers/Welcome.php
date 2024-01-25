@@ -9,6 +9,7 @@ class Welcome extends CI_Controller {
 	function __construct(){
         parent::__construct();
         $this->load->model('M_produk', 'M_produk', TRUE);
+        $this->load->model('M_keranjang', 'M_keranjang', TRUE);
 		$this->load->model('User_model', 'user_model', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -35,10 +36,30 @@ class Welcome extends CI_Controller {
 	}
 
 	public function pemesanan(){
-		$data = array(
-			'isi'=> 'users/v_pemesanan'
-		);
-		$this->load->view('users/layout/v_wrapper', $data, FALSE);
+		$data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'main/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'main/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'main/login/');
+        }else{
+			if($dataLevel == 'is_user'){
+				$data = array(
+					'isi'=> 'users/v_pemesanan',
+					'pemesanan' => $this->M_keranjang->getData($data['id'])
+				);
+				$this->load->view('users/layout/v_wrapper', $data, FALSE);
+			}else{
+				redirect(site_url().'main/login/');
+			}
+		}
 	}
 
 	public function riwayat(){
@@ -95,4 +116,26 @@ class Welcome extends CI_Controller {
 			}
 		}
 	}
+
+	public function add_to_cart(){
+        $id_produk = $this->input->post('id');
+    
+        // Panggil model atau metode yang diperlukan untuk mengambil data produk
+        $productData = $this->M_produk->getData($id_produk);
+
+        if($productData){
+            $cartData = array(
+                'id' => $this->session->userdata['id'],
+                'id_produk' => $id_produk,
+                'kuantitas' => 1
+            );
+    
+            $this->M_keranjang->add($cartData);
+            echo json_encode(['status' => 'success']);
+        }else {
+            // Produk tidak ditemukan, kirim respons JSON dengan pesan error
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Product not found']);
+        }
+    }
 }
