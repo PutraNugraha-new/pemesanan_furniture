@@ -119,24 +119,31 @@ class Welcome extends CI_Controller {
 
 	public function add_to_cart(){
         $id_produk = $this->input->post('id');
+		$id = $this->session->userdata['id'];
+		$quantity = 1;
+
+		// Cek apakah produk sudah ada di keranjang
+		$existingItem = $this->M_keranjang->get_item_by_product_id($id_produk, $id);
     
         // Panggil model atau metode yang diperlukan untuk mengambil data produk
-        $productData = $this->M_produk->getData($id_produk);
-
-        if($productData){
-            $cartData = array(
-                'id' => $this->session->userdata['id'],
-                'id_produk' => $id_produk,
-                'kuantitas' => 1
-            );
-    
-            $this->M_keranjang->add($cartData);
-            echo json_encode(['status' => 'success']);
-        }else {
-            // Produk tidak ditemukan, kirim respons JSON dengan pesan error
-            header('Content-Type: application/json');
-            echo json_encode(['error' => 'Product not found']);
-        }
+        // $productData = $this->M_produk->getData($id_produk);
+		if ($existingItem) {
+			// Produk sudah ada di keranjang, perbarui jumlahnya
+			$newQuantity = $existingItem->kuantitas + $quantity;
+			$this->M_keranjang->update_jumlah_produk($existingItem->id_keranjang, $newQuantity);
+		} else {
+			// Produk belum ada di keranjang, tambahkan sebagai item baru
+			$data = array(
+				'id' => $this->session->userdata['id'],
+				'id_produk' => $id_produk,
+				'kuantitas' => $quantity
+				// ... (sesuaikan dengan struktur tabel Anda)
+			);
+			$this->M_keranjang->add($data);
+		}
+	
+		// Response sukses
+		echo json_encode(['status' => 'success']);
     }
 
 	public function update_cart(){
@@ -168,5 +175,14 @@ class Welcome extends CI_Controller {
             // Tanggapan jika bukan permintaan Ajax
             show_404();
         }
+	}
+
+	public function countKuantitas(){
+            $id = $this->session->userdata['id'];
+
+			$totalQuantity = $this->M_keranjang->get_total_quantity($id);
+
+			// Kirim respons sebagai JSON
+			echo json_encode(['total_quantity' => $totalQuantity]);
 	}
 }

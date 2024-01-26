@@ -44,6 +44,7 @@
                 method: 'post',
                 dataType:'json',
                 success:function(data){
+                    location.reload();
                     alert('Product added to cart!');
                 }, 
                 error: function (xhr, status, error) {

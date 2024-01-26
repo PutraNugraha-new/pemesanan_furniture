@@ -68,19 +68,7 @@
 <script>
     $(document).ready(function () {
 
-        function updateNotifikasiJumlah() {
-            // Hitung total jumlah produk dalam keranjang
-            var totalJumlah = 0;
-            $('input[name="jumlah"]').each(function () {
-                totalJumlah += parseInt($(this).val(), 10);
-            });
 
-            // Perbarui notifikasi jumlah
-            $('#notifJumlah').text(totalJumlah);
-        }
-
-        // Panggil fungsi updateNotifikasiJumlah saat halaman dimuat
-        updateNotifikasiJumlah();
 
         function hitungTotalAwal() {
             $('input[name="jumlah"]').each(function () {
@@ -91,7 +79,7 @@
                 var totalAkhir = total + ongkir;
                 $(this).closest('tr').find('#total').text('Rp.' + total);
                 $('#totalAkhir').text('Rp.' + totalAkhir);
-                updateNotifikasiJumlah();
+                
             });
         }
 
@@ -113,7 +101,7 @@
             // Tampilkan total pada elemen dengan id "total"
             $(this).closest('tr').find('#total').text('Rp.' + total);
             $('#totalAkhir').text('Rp.' + totalAkhir);
-            updateNotifikasiJumlah();
+            
 
             $.ajax({
                 url: '<?= base_url("welcome/update_cart") ?>',

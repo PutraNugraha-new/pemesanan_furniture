@@ -38,4 +38,18 @@ class M_keranjang extends CI_Model {
 		$this->db->where('id_keranjang', $data);
 		$this->db->delete('tb_keranjang');
 	}
+
+    public function get_item_by_product_id($productId, $id) {
+        $this->db->where('id', $id);
+        $this->db->where('id_produk', $productId);
+        return $this->db->get('tb_keranjang')->row();
+    }
+
+    public function get_total_quantity($id) {
+        $this->db->select_sum('kuantitas');
+        $this->db->where('id', $id);
+        $result = $this->db->get('tb_keranjang')->row();
+
+        return ($result) ? $result->kuantitas : 0;
+    }
 }

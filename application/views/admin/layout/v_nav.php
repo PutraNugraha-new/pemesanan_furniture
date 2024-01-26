@@ -19,6 +19,10 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-address-card"></i></div>
                                 Pelanggan
                             </a>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'galeri' ? 'active' : '') ?>" href="<?= base_url() ?>galeri">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-photo-film"></i></div>
+                                Galeri
+                            </a>
                             <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'laporan' ? 'active' : '') ?>" href="<?= base_url() ?>laporan">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-square-poll-vertical"></i></div>
                                 Laporan

@@ -12,5 +12,19 @@
         <link href="<?= base_url() ?>assets/css/custom.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <style>
+            .position-relative {
+                position: relative;
+            }
+
+            .delete-icon {
+                position: absolute;
+                top: 0;
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 5px;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">

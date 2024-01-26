@@ -228,7 +228,6 @@ class Main extends CI_Controller {
             'isi'   =>  'login/v_registrasi',
         );
         if ($this->form_validation->run() == FALSE) {
-            die();
             $this->load->view('users/layout/v_wrapper', $data, FALSE);
         }else{
             if($this->user_model->isDuplicate($this->input->post('email'))){
