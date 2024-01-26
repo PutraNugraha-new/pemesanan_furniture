@@ -15,26 +15,28 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($pemesanan as $data): ?>
                             <tr>
                                 <th>
-                                    <img src="<?= base_url() ?>foto_produk/<?= $pemesanan->foto_brg ?>" style="width:100px;height:100px;" class="img-fluid rounded-3" alt="Bangku">
+                                    <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" style="width:100px;height:100px;" class="img-fluid rounded-3" alt="Bangku">
                                 </th>
-                                <td><?= $pemesanan->nama_brg ?></td>
+                                <td><?= $data->nama_brg ?></td>
                                 <td>
-                                    <p id="harga" data-harga="<?= $pemesanan->harga ?>">Rp.<?= $pemesanan->harga ?></p>
+                                    <p id="harga" data-harga="<?= $data->harga ?>">Rp.<?= $data->harga ?></p>
                                 </td>
                                 <td>
-                                    <input type="number" name="jumlah" value="<?= $pemesanan->kuantitas ?>" style="width:80px;" class="form-control" id="jumlah">
+                                    <input type="number" value="<?= $data->kuantitas ?>" data-id="<?= $data->id_keranjang ?>" name="jumlah" value="<?= $data->kuantitas ?>" style="width:80px;" class="form-control" id="jumlah">
                                 </td>
                                 <td>
                                     <p id="total"></p>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-primary">
+                                    <button class="btn btn-primary hapusProduk" data-id="<?= $data->id_keranjang ?>">
                                         <i class="fa-solid fa-trash"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -66,6 +68,20 @@
 <script>
     $(document).ready(function () {
 
+        function updateNotifikasiJumlah() {
+            // Hitung total jumlah produk dalam keranjang
+            var totalJumlah = 0;
+            $('input[name="jumlah"]').each(function () {
+                totalJumlah += parseInt($(this).val(), 10);
+            });
+
+            // Perbarui notifikasi jumlah
+            $('#notifJumlah').text(totalJumlah);
+        }
+
+        // Panggil fungsi updateNotifikasiJumlah saat halaman dimuat
+        updateNotifikasiJumlah();
+
         function hitungTotalAwal() {
             $('input[name="jumlah"]').each(function () {
                 var jumlah = $(this).val();
@@ -75,6 +91,7 @@
                 var totalAkhir = total + ongkir;
                 $(this).closest('tr').find('#total').text('Rp.' + total);
                 $('#totalAkhir').text('Rp.' + totalAkhir);
+                updateNotifikasiJumlah();
             });
         }
 
@@ -82,6 +99,10 @@
         hitungTotalAwal();
         // Event listener untuk setiap perubahan pada input jumlah
         $('input[name="jumlah"]').on('input', function () {
+
+            var id = $(this).data('id');
+            console.log(id);
+
             // Ambil nilai jumlah dan harga dari atribut data-harga
             var jumlah = $(this).val();
             var harga = $(this).closest('tr').find('#harga').data('harga');
@@ -92,6 +113,43 @@
             // Tampilkan total pada elemen dengan id "total"
             $(this).closest('tr').find('#total').text('Rp.' + total);
             $('#totalAkhir').text('Rp.' + totalAkhir);
+            updateNotifikasiJumlah();
+
+            $.ajax({
+                url: '<?= base_url("welcome/update_cart") ?>',
+                data: {
+                    id : id,
+                    jumlah: jumlah
+                },
+                method: 'post',
+                dataType:'json',
+                success:function(response){
+                    console.log(response);
+                }, 
+                error: function (xhr, status, error) {
+                    console.error("Error: " + status, error);
+                }
+            });
+        });
+
+        $('.hapusProduk').on('click', function () {
+
+            var id = $(this).data('id');
+            $.ajax({
+                url: '<?= base_url("welcome/delete") ?>',
+                data: {
+                    id : id
+                },
+                method: 'post',
+                dataType:'json',
+                success:function(response){
+                    location.reload();
+                }, 
+                error: function (xhr, status, error) {
+                    console.error("Error: " + status, error);
+                }
+            });
+
         });
     });
 </script>

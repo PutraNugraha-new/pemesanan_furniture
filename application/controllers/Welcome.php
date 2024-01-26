@@ -138,4 +138,35 @@ class Welcome extends CI_Controller {
             echo json_encode(['error' => 'Product not found']);
         }
     }
+
+	public function update_cart(){
+		if ($this->input->is_ajax_request()) {
+            $id_keranjang = $this->input->post('id');
+            $jumlah = $this->input->post('jumlah');
+
+            // Panggil model untuk mengupdate jumlah di database
+            $this->M_keranjang->update_jumlah_produk($id_keranjang, $jumlah);
+
+            // Kirim tanggapan ke klien (jika diperlukan)
+            echo json_encode(['status' => 'success']);
+        } else {
+            // Tanggapan jika bukan permintaan Ajax
+            show_404();
+        }
+	}
+
+	public function delete(){
+		if ($this->input->is_ajax_request()) {
+            $id_produk = $this->input->post('id');
+
+            // Panggil model untuk menghapus data dari database
+            $this->M_keranjang->delete($id_produk);
+
+            // Kirim tanggapan ke klien
+            echo json_encode(['status' => 'success']);
+        } else {
+            // Tanggapan jika bukan permintaan Ajax
+            show_404();
+        }
+	}
 }

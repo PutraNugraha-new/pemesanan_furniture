@@ -23,7 +23,7 @@
                 <li class="nav-item mx-2">
                     <a class="nav-link text-light" href="<?= base_url() ?>welcome/pemesanan">
                         <i class="fa-solid fa-list-alt"></i>
-                        Pemesanan
+                        Pemesanan <span class="badge badge-danger" id="notifJumlah"></span>
                     </a>
                 </li>
                 <li class="nav-item mx-2">
