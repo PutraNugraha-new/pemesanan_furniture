@@ -21,7 +21,7 @@
             <?php foreach($galeri as $data): ?>
                 <div class="col-md-3 position-relative">
                     <img src="<?= base_url() ?>foto_produk/<?= $data->nama_foto ?>" style="width:200px;height:200px;" class="img-fluid rounded-3" alt="Bangku">
-                    <div class="delete-icon">
+                    <div class="delete-icon hapusGaleri" data-id="<?= $data->id_foto ?>">
                         <!-- Tambahkan ikon sampah di sini -->
                         <i class="fa-solid fa-trash text-danger"></i>
                     </div>
@@ -31,3 +31,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.hapusGaleri').on('click', function () {
+
+            var id = $(this).data('id');
+            $.ajax({
+                url: '<?= base_url("galeri/delete") ?>',
+                data: {
+                    id : id
+                },
+                method: 'post',
+                dataType:'json',
+                success:function(response){
+                    location.reload();
+                }, 
+                error: function (xhr, status, error) {
+                    console.error("Error: " + status, error);
+                }
+            });
+
+        });
+    });
+</script>

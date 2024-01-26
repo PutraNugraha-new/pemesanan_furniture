@@ -29,6 +29,13 @@ class User_model extends CI_Model {
             $this->db->query($q);
             return $this->db->insert_id();
     }
+
+    public function allData(){
+        $this->db->select('*');
+        $this->db->from('users');
+        return $this->db->get()->result();
+    }
+
     
     //check is duplicate
     public function isDuplicate($email)

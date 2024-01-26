@@ -78,7 +78,7 @@
                         <h4>Rp. <?= $data->harga ?></h4>
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
-                        <a href="#" class="btn">
+                        <a href="<?= base_url() ?>welcome/detailProduk/<?= $data->id_produk ?>" class="btn">
                             <i class="fa-solid fa-arrow-right panah"></i>
                         </a>
                     </div>

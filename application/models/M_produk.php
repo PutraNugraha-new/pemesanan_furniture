@@ -35,4 +35,13 @@ class M_produk extends CI_Model {
         return $this->db->count_all("tb_produk");
     }
 
+    public function getDetail($id){
+        $this->db->select('tb_produk.*, tb_foto.*');
+        $this->db->from('tb_produk');
+        $this->db->join('tb_foto', 'tb_foto.id_produk = tb_produk.id_produk', 'left');
+        $this->db->where('tb_produk.id_produk', $id);
+        return $this->db->get()->row();
+    
+    }
+
 }

@@ -73,8 +73,27 @@ class Galeri extends CI_Controller {
             $this->M_galeri->add($tambah);
             $this->session->set_flashdata('success_message', 'Berhasil Menambahkan Data Produk');
             redirect(site_url().'galeri/tambah/'.$id_produk);
-
     }
+
+    public function delete(){
+		if ($this->input->is_ajax_request()) {
+            $id_produk = $this->input->post('id');
+            $ambil = $this->M_galeri->getDataFoto($id_produk);
+            $name = './foto_produk/'.$ambil->nama_foto;
+
+            // Panggil model untuk menghapus data dari database
+           
+
+            $data = array('id_produk' => $id_produk);
+            if(is_readable($name) && unlink($name)){
+                $this->M_galeri->delete($id_produk);
+                echo json_encode(['status' => 'success']);
+            }
+        } else {
+            // Tanggapan jika bukan permintaan Ajax
+            show_404();
+        }
+	}
 
 }
 

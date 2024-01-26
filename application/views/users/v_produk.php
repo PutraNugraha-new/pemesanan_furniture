@@ -14,7 +14,9 @@
             <div class="col-md-3 col-12 my-2">
                     <div class="card shadow rounded-1">
                         <div class="card-body">
-                            <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" style="width:200px;height:200px;" class="img-fluid rounded-3" alt="Bangku">                
+                            <a href="<?= base_url() ?>welcome/detailProduk/<?= $data->id_produk ?>">
+                                <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" style="width:200px;height:200px;" class="img-fluid rounded-3" alt="Bangku">                
+                            </a>
                         </div>
                         <div class="card-footer">
                             <p class="mt-2 d-flex justify-content-between">

@@ -10,6 +10,7 @@ class Welcome extends CI_Controller {
         parent::__construct();
         $this->load->model('M_produk', 'M_produk', TRUE);
         $this->load->model('M_keranjang', 'M_keranjang', TRUE);
+        $this->load->model('M_galeri', 'M_galeri', TRUE);
 		$this->load->model('User_model', 'user_model', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -184,5 +185,14 @@ class Welcome extends CI_Controller {
 
 			// Kirim respons sebagai JSON
 			echo json_encode(['total_quantity' => $totalQuantity]);
+	}
+
+	public function detailProduk($id_produk){
+		$data = array(
+			'isi' => 'users/v_detail',
+			'produk' => $this->M_produk->getDetail($id_produk),
+			'galeri' => $this->M_galeri->getData($id_produk)
+		);
+		$this->load->view('users/layout/v_wrapper', $data, FALSE);
 	}
 }

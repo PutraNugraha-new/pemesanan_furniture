@@ -23,11 +23,12 @@
                 </tr>
             </tfoot>
             <tbody>
+                <?php $no=1; foreach($pelanggan as $data): ?>
                 <tr>
-                    <td>1</td>
-                    <td>Fathur</td>
-                    <td>Palangkaraya</td>
-                    <td>0812345666</td>
+                    <td><?= $no; ?></td>
+                    <td><?= $data->first_name ?></td>
+                    <td><?= $data->alamat ?></td>
+                    <td><?= $data->no_hp ?></td>
                     <td>
                         <a href="#" data-bs-toggle="modal" data-id="2" data-bs-target="#modalproduk" class="btn tampilModalUbah btn-primary p-1" data-toggle="tooltip" data-placement="bottom" title="Edit Data">
                             <i class="fa-solid fa-pencil"></i>
@@ -35,11 +36,9 @@
                         <a href="" class="btn btn-danger p-1" data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
                             <i class="fa-solid fa-trash"></i>
                         </a>
-                        <a href="#" class="btn btn-secondary p-1" data-toggle="tooltip" data-placement="bottom" title="detail Data">
-                            <i class="fa-solid fa-eye"></i>
-                        </a>
                     </td>
                 </tr>
+                <?php $no++; endforeach; ?>
             </tbody>
         </table>
     </div>
