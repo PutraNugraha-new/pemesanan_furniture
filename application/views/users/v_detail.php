@@ -12,7 +12,7 @@
         </div>
         <?php endforeach; ?>
     </div>
-    <div class="row">
+    <div class="row mb-5">
         <h3>
             Deskripsi
         </h3>
@@ -27,4 +27,36 @@
             </p>
         </div>
     </div>
+    <?php if($this->session->userdata('id')): ?>
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <a href="#" class="btn add-to-cart" data-id="<?= $data->id_produk ?>" style="font-size:20pt;">
+                <i class="fa-solid fa-cart-plus"></i>
+            </a>
+        </div>
+    </div>
+    <?php endif; ?>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Menggunakan AJAX untuk menambah produk ke keranjang belanja
+        $('.add-to-cart').on('click', function () {
+            var id = $(this).data('id');
+            console.log(id);
+            $.ajax({
+                url: '<?= base_url("welcome/add_to_cart") ?>',
+                data: {id : id},
+                method: 'post',
+                dataType:'json',
+                success:function(data){
+                    location.reload();
+                    alert('Product added to cart!');
+                }, 
+                error: function (xhr, status, error) {
+                    console.error("Error: " + status, error);
+                }
+            });
+        });
+    });
+</script>

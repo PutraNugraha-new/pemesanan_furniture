@@ -195,4 +195,14 @@ class Welcome extends CI_Controller {
 		);
 		$this->load->view('users/layout/v_wrapper', $data, FALSE);
 	}
+
+	public function get_produk_by_kategori() {
+		$kategori = $this->input->post('kategori');
+		if(empty($kategori)){
+			$produk = $this->M_produk->allData();	
+		}else{
+			$produk =  $this->M_produk->get_produk_by_kategori($kategori);
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($produk));
+    }
 }

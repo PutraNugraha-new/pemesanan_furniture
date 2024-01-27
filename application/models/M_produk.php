@@ -25,6 +25,12 @@ class M_produk extends CI_Model {
         return $this->db->get()->row();
     }
 
+    public function get_produk_by_kategori($kategori) {
+        // Ambil data produk berdasarkan kategori dari database
+        $this->db->where('jenis_brg', $kategori);
+        return $this->db->get('tb_produk')->result();
+    }
+
     public function delete($data)
 	{
 		$this->db->where('id_produk', $data['id_produk']);

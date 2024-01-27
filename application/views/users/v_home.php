@@ -63,7 +63,12 @@
         <div class="row">
             <h1>All Collection</h1>
             <div class="col-md-12">
-                <?php foreach($produk as $data): ?>
+                <?php 
+                $limit = 3; // Jumlah maksimal produk yang ingin ditampilkan
+                $count = 0;
+                foreach($produk as $data): 
+                    if ($count < $limit):
+                ?>
                 <div class="row my-3">
                     <div class="col-md-10">
                         <div class="garis"></div>
@@ -83,7 +88,20 @@
                         </a>
                     </div>
                 </div>
-                <?php endforeach; ?>
+                <?php 
+                    $count++;
+                    else:
+                        break;
+                    endif;
+                    endforeach; 
+                ?>
+                <?php if (count($produk) > $limit): ?>
+                <div class="row my-3">
+                    <div class="col-md-12 text-center">
+                        <a href="<?= base_url() ?>welcome/produk" class="btn btn-primary text-dark rounded-0">Lihat lebih Banyak</a>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

@@ -53,7 +53,6 @@
             dataType:'json',
             success:function(data){
                 $('#notifJumlah').text(data.total_quantity);
-                console.log(data);
             }, 
             error: function (xhr, status, error) {
                 console.error("Error: " + status, error);
