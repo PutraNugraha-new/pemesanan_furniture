@@ -30,7 +30,7 @@
     <?php if($this->session->userdata('id')): ?>
     <div class="row mb-5">
         <div class="col-md-6">
-            <a href="#" class="btn add-to-cart" data-id="<?= $data->id_produk ?>" style="font-size:20pt;">
+            <a href="#" class="btn add-to-cart" data-id="<?= $produk->id_produk ?>" style="font-size:20pt;">
                 <i class="fa-solid fa-cart-plus"></i>
             </a>
         </div>

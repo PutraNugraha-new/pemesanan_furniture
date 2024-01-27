@@ -11,6 +11,7 @@ class Welcome extends CI_Controller {
         $this->load->model('M_produk', 'M_produk', TRUE);
         $this->load->model('M_keranjang', 'M_keranjang', TRUE);
         $this->load->model('M_galeri', 'M_galeri', TRUE);
+        $this->load->model('M_pemesanan', 'M_pemesanan', TRUE);
 		$this->load->model('User_model', 'user_model', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -190,7 +191,7 @@ class Welcome extends CI_Controller {
 	public function detailProduk($id_produk){
 		$data = array(
 			'isi' => 'users/v_detail',
-			'produk' => $this->M_produk->getDetail($id_produk),
+			'produk' => $this->M_produk->getData($id_produk),
 			'galeri' => $this->M_galeri->getData($id_produk)
 		);
 		$this->load->view('users/layout/v_wrapper', $data, FALSE);
@@ -204,5 +205,28 @@ class Welcome extends CI_Controller {
 			$produk =  $this->M_produk->get_produk_by_kategori($kategori);
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($produk));
+    }
+
+
+	public function simpan_pesanan() {
+        // Ambil data pesanan dari POST request
+        $pesanan = $this->input->post('pesanan');
+		$id = $this->session->userdata['id'];
+
+        // Simpan data pesanan ke dalam tabel pesanan (order)
+        $id_pesanan = $this->M_pemesanan->simpan_pesanan($pesanan, $id);
+
+        if($id_pesanan){
+			$this->M_pemesanan->simpan_detail_pesanan($id_pesanan, $pesanan);
+			$this->M_keranjang->deleteById($id);
+
+			$response['success'] = true;
+            $response['message'] = 'Pesanan berhasil disimpan.';
+		}else{
+			$response['success'] = false;
+            $response['message'] = 'Gagal menyimpan pesanan.';
+		}
+        // Mengembalikan response dalam format JSON
+        echo json_encode($response);
     }
 }

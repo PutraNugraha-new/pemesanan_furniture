@@ -1,3 +1,15 @@
+<?php if ($this->session->flashdata('success_message')): ?>
+    <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
+        <?= $this->session->flashdata('success_message'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+<?php if ($this->session->flashdata('error_message')): ?>
+    <div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">
+        <?= $this->session->flashdata('error_message'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
 <h3>Input Produk</h3>
 <div class="card">
     <div class="card-body">
@@ -49,18 +61,6 @@
         <?php echo form_close(); ?>
     </div>
 </div>
-<?php if ($this->session->flashdata('success_message')): ?>
-    <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
-        <?= $this->session->flashdata('success_message'); ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<?php endif; ?>
-<?php if ($this->session->flashdata('error_message')): ?>
-    <div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">
-        <?= $this->session->flashdata('error_message'); ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<?php endif; ?>
 <div class="card mt-3">
     <div class="card-header">
         <h4>Produk</h4>

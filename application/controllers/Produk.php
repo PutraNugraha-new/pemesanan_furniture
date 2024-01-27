@@ -194,14 +194,22 @@ class Produk extends CI_Controller {
     public function delete($id_produk)
 	{
         $ambil = $this->M_produk->getData($id_produk);
-        $name = './foto_produk/'.$ambil->foto_brg;
+        $cekKeranjang = $this->M_keranjang->getProduk($id_produk);
 
-		$data = array('id_produk' => $id_produk);
-        if(is_readable($name) && unlink($name)){
-            $this->M_produk->delete($data);
-            $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
+        if($cekKeranjang){
+            $this->session->set_flashdata('error_message', 'Terdapat Produk pada Keranjang');
             redirect('produk ', 'refresh');
+        }else{
+            $name = './foto_produk/'.$ambil->foto_brg;
+    
+            $data = array('id_produk' => $id_produk);
+            if(is_readable($name) && unlink($name)){
+                $this->M_produk->delete($data);
+                $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
+                redirect('produk ', 'refresh');
+            }
         }
+
 	}
 
 
