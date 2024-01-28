@@ -27,6 +27,10 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-square-poll-vertical"></i></div>
                                 Laporan
                             </a>
+                            <a class="nav-link text-danger" href="<?= base_url() ?>login/logout" onClick="return confirm('Ingin Keluar dari Sistem?')">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket text-danger"></i></div>
+                                Logout
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

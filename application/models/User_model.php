@@ -314,4 +314,21 @@ class User_model extends CI_Model {
         }        
         return true;
     }
+
+    public function getData($id){
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+
+    public function edit($data)
+    {
+        $this->db->where('id',$data['id']);
+        $this->db->update('users',$data);
+    }
+
+    public function getCountData(){
+        return $this->db->count_all("users");
+    }
 }

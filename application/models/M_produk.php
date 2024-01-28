@@ -31,11 +31,9 @@ class M_produk extends CI_Model {
         return $this->db->get('tb_produk')->result();
     }
 
-    public function delete($data)
-	{
-		$this->db->where('id_produk', $data['id_produk']);
-		$this->db->delete('tb_produk',$data);
-	}
+    public function delete($id_produk) {
+        return $this->db->delete('tb_produk', array('id_produk' => $id_produk));
+    }
     
     public function getCountData(){
         return $this->db->count_all("tb_produk");

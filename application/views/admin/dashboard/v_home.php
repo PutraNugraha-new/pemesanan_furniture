@@ -9,7 +9,7 @@
                                             <i class="fa-solid fa-cart-shopping me-3"></i>
                                             Jumlah Produk
                                         </h5>
-                                        <h1 class="text-center">10</h1>
+                                        <h1 class="text-center"><?= $produk ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -20,7 +20,7 @@
                                             <i class="fa-solid fa-user-check me-3"></i>
                                             Jumlah Pengguna
                                         </h5>
-                                        <h1 class="text-center">10</h1>
+                                        <h1 class="text-center"><?= $pengguna ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                             <i class="fa-solid fa-rectangle-list me-3"></i>
                                             Jumlah Pemesanan
                                         </h5>
-                                        <h1 class="text-center">10</h1>
+                                        <h1 class="text-center"><?= $pemesanan ?></h1>
                                     </div>
                                 </div>
                             </div>

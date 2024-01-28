@@ -21,58 +21,121 @@ class Galeri extends CI_Controller {
 
     public function index()
     {
-        $data = array(  
-            'judul' => 'Galeri',
-            'isi'   =>  'admin/galeri/v_home',
-            'produk' => $this->M_produk->allData(),
-        );
-        $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'login/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'login/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'login/login/');
+        }else{
+			if($dataLevel == 'is_admin'){
+                $data = array(  
+                    'judul' => 'Galeri',
+                    'isi'   =>  'admin/galeri/v_home',
+                    'produk' => $this->M_produk->allData(),
+                );
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                redirect(site_url().'main/login/');
+            }
+        }
     }
 
     public function tambah($id_produk){
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'login/login/');
+	    }
 
-        $data = array(  
-            'judul' => 'Galeri',
-            'isi'   =>  'admin/galeri/v_tambah',
-            'id' => $id_produk,
-            'galeri' => $this->M_galeri->getData($id_produk)
-        );
-        $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'login/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'login/login/');
+        }else{
+			if($dataLevel == 'is_admin'){
+                $data = array(  
+                    'judul' => 'Galeri',
+                    'isi'   =>  'admin/galeri/v_tambah',
+                    'id' => $id_produk,
+                    'galeri' => $this->M_galeri->getData($id_produk)
+                );
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                redirect(site_url().'main/login/');
+            }
+        }
     }
 
     public function add()
     {   
-        $id_produk = $this->input->post('id_produk');
-        $foto = $_FILES['nama_foto']['name'];
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'login/login/');
+	    }
 
-            $upload_data = array();
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'login/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'login/login/');
+        }else{
+			if($dataLevel == 'is_admin'){
+                $id_produk = $this->input->post('id_produk');
+                $foto = $_FILES['nama_foto']['name'];
 
-            // Periksa apakah file diunggah
-            if (!empty($_FILES['nama_foto']['name'])) {
-                $config['upload_path'] = './foto_produk/';
-                $config['allowed_types'] = 'jpg|png|jpeg'; // Sesuaikan jenis file yang diizinkan
-                $config['max_size']  = 10000; 
+                $upload_data = array();
 
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
+                // Periksa apakah file diunggah
+                if (!empty($_FILES['nama_foto']['name'])) {
+                    $config['upload_path'] = './foto_produk/';
+                    $config['allowed_types'] = 'jpg|png|jpeg'; // Sesuaikan jenis file yang diizinkan
+                    $config['max_size']  = 10000; 
 
-                if (!$this->upload->do_upload('nama_foto')) {
-                    $error = array('error' => $this->upload->display_errors());
-                    $this->session->set_flashdata('error_message', $error['error']);
-                    redirect('galeri/tambah/'.$id_produk, 'refresh');
-                } else {
-                    $upload_data = $this->upload->data();
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+
+                    if (!$this->upload->do_upload('nama_foto')) {
+                        $error = array('error' => $this->upload->display_errors());
+                        $this->session->set_flashdata('error_message', $error['error']);
+                        redirect('galeri/tambah/'.$id_produk, 'refresh');
+                    } else {
+                        $upload_data = $this->upload->data();
+                        $nama_file_acak = random_string('alnum', 16); // Menghasilkan string acak dengan panjang 16 karakter
+                        $ext = pathinfo($_FILES['nama_foto']['name'], PATHINFO_EXTENSION); // Mendapatkan ekstensi file yang diunggah
+                        $nama_file_akhir = $nama_file_acak . '.' . $ext; // Menyatukan nama file acak dengan ekstensi
+
+                        // Pindahkan file yang diunggah ke lokasi tujuan dengan nama yang diacak
+                        rename($upload_data['full_path'], $config['upload_path'] . $nama_file_akhir);
+                        $nama_file_disimpan = $nama_file_akhir;
+                    }
                 }
-            }
-            $tambah = [
-                'id_produk' => $this->input->post('id_produk'),
-                'nama_foto' => (!empty($upload_data)) ? $upload_data['file_name'] : null,
-            ];
+                $tambah = [
+                    'id_produk' => $this->input->post('id_produk'),
+                    'nama_foto' => (!empty($nama_file_disimpan)) ? $nama_file_disimpan : null,
+                ];
 
-            //insert to database
-            $this->M_galeri->add($tambah);
-            $this->session->set_flashdata('success_message', 'Berhasil Menambahkan Data Produk');
-            redirect(site_url().'galeri/tambah/'.$id_produk);
+                //insert to database
+                $this->M_galeri->add($tambah);
+                $this->session->set_flashdata('success_message', 'Berhasil Menambahkan Data Produk');
+                redirect(site_url().'galeri/tambah/'.$id_produk);
+            }else{
+                redirect(site_url().'main/login/');
+            }
+        }
     }
 
     public function delete(){

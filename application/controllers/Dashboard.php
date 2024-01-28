@@ -25,22 +25,25 @@ class Dashboard extends CI_Controller {
     {
         $data = $this->session->userdata;
 	    if(empty($data)){
-	        redirect(site_url().'main/login/');
+	        redirect(site_url().'login/login/');
 	    }
 
 	    //check user level
 	    if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
+	        redirect(site_url().'login/login/');
 	    }
 	    $dataLevel = $this->userlevel->checkLevel($data['role']);
 	    //check user level
         if(empty($this->session->userdata['email'])){
-            redirect(site_url().'main/login/');
+            redirect(site_url().'login/login/');
         }else{
 			if($dataLevel == 'is_admin'){
                 $data = array(  
                     'judul' => 'Dashboard',
                     'isi'   =>  'admin/dashboard/v_home',
+                    'produk' => $this->M_produk->getCountData(),
+                    'pengguna' => $this->user_model->getCountData(),
+                    'pemesanan' => $this->M_pemesanan->getCountData(),
                 );
                 $this->load->view('admin/layout/v_wrapper', $data, FALSE);
             }else{

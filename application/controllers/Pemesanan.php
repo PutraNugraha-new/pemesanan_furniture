@@ -23,12 +23,32 @@ class Pemesanan extends CI_Controller {
 
     public function index()
     {
-        $data = array(  
-            'judul' => 'Pemesanan',
-            'isi'   =>  'admin/pemesanan/v_home',
-            'riwayat' => $this->M_riwayat->get_pesanan_produk_userAll()
-        );
-        $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'login/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'login/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'login/login/');
+        }else{
+			if($dataLevel == 'is_admin'){
+                $data = array(  
+                    'judul' => 'Pemesanan',
+                    'isi'   =>  'admin/pemesanan/v_home',
+                    'riwayat' => $this->M_riwayat->get_pesanan_produk_userAll()
+                );
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                redirect(site_url().'main/login/');
+            }
+        }
+        
     }
 
     public function updateProses(){

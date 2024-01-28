@@ -11,6 +11,7 @@ class Produk extends CI_Controller {
         parent::__construct();
         $this->load->model('M_produk', 'M_produk', TRUE);
         $this->load->model('M_keranjang', 'M_keranjang', TRUE);
+        $this->load->model('M_galeri', 'M_galeri', TRUE);
         $this->load->model('User_model', 'user_model', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -21,12 +22,31 @@ class Produk extends CI_Controller {
 
     public function index()
     {   
-        $data = array(  
-            'judul' => 'Produk',
-            'isi'   =>  'admin/produk/v_home',
-            'produk' => $this->M_produk->allData(),
-        );
-        $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'login/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'login/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'login/login/');
+        }else{
+			if($dataLevel == 'is_admin'){
+                $data = array(  
+                    'judul' => 'Produk',
+                    'isi'   =>  'admin/produk/v_home',
+                    'produk' => $this->M_produk->allData(),
+                );
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                redirect(site_url().'main/login/');
+            }
+        }
     }
 
     public function add()
@@ -63,6 +83,16 @@ class Produk extends CI_Controller {
                     redirect('produk', 'refresh');
                 } else {
                     $upload_data = $this->upload->data();
+                     // Menghasilkan nama file acak
+                    $nama_file_acak = random_string('alnum', 16); // Menghasilkan string acak dengan panjang 16 karakter
+                    $ext = pathinfo($_FILES['foto_brg']['name'], PATHINFO_EXTENSION); // Mendapatkan ekstensi file yang diunggah
+                    $nama_file_akhir = $nama_file_acak . '.' . $ext; // Menyatukan nama file acak dengan ekstensi
+
+                    // Pindahkan file yang diunggah ke lokasi tujuan dengan nama yang diacak
+                    rename($upload_data['full_path'], $config['upload_path'] . $nama_file_akhir);
+
+                    // Simpan nama file acak ke dalam variabel untuk disimpan ke dalam database
+                    $nama_file_disimpan = $nama_file_akhir;
                 }
             }
             $tambah = [
@@ -71,7 +101,7 @@ class Produk extends CI_Controller {
                 'deskripsi' => $this->input->post('deskripsi'),
                 'harga' => $this->input->post('harga'),
                 'stok' => $this->input->post('stok'),
-                'foto_brg' => (!empty($upload_data)) ? $upload_data['file_name'] : null,
+                'foto_brg' => (!empty($nama_file_disimpan)) ? $nama_file_disimpan : null,
             ];
 
             //insert to database
@@ -132,8 +162,8 @@ class Produk extends CI_Controller {
 
                 if (is_readable($name) && is_file($name) && unlink($name)) {
                     $config['upload_path'] = './foto_produk/';
-                    $config['allowed_types'] = 'jpg|png|jpeg'; // Sesuaikan jenis file yang diizinkan
-                    $config['max_size']  = $max_size;
+                    $config['allowed_types'] = 'jpg|png|jpeg';
+                    $config['max_size']  = 10000;
 
                     $this->load->library('upload', $config);
                     $this->upload->initialize($config);
@@ -146,7 +176,15 @@ class Produk extends CI_Controller {
                         redirect('produk', 'refresh');
                     } else {
                         $upload_data = $this->upload->data();
-                        $nama = $upload_data['file_name'];
+                        $nama_file_acak = random_string('alnum', 16); // Menghasilkan string acak dengan panjang 16 karakter
+                        $ext = pathinfo($_FILES['foto_brg']['name'], PATHINFO_EXTENSION); // Mendapatkan ekstensi file yang diunggah
+                        $nama_file_akhir = $nama_file_acak . '.' . $ext; // Menyatukan nama file acak dengan ekstensi
+    
+                        // Pindahkan file yang diunggah ke lokasi tujuan dengan nama yang diacak
+                        rename($upload_data['full_path'], $config['upload_path'] . $nama_file_akhir);
+    
+                        // Simpan nama file acak ke dalam variabel untuk disimpan ke dalam database
+                        $nama = $nama_file_akhir;
                         // var_dump($nama);
                     }
                 }else{
@@ -167,7 +205,15 @@ class Produk extends CI_Controller {
                         redirect('produk', 'refresh');
                     } else {
                         $upload_data = $this->upload->data();
-                        $nama = $upload_data['file_name'];
+                        $nama_file_acak = random_string('alnum', 16); // Menghasilkan string acak dengan panjang 16 karakter
+                        $ext = pathinfo($_FILES['foto_brg']['name'], PATHINFO_EXTENSION); // Mendapatkan ekstensi file yang diunggah
+                        $nama_file_akhir = $nama_file_acak . '.' . $ext; // Menyatukan nama file acak dengan ekstensi
+    
+                        // Pindahkan file yang diunggah ke lokasi tujuan dengan nama yang diacak
+                        rename($upload_data['full_path'], $config['upload_path'] . $nama_file_akhir);
+    
+                        // Simpan nama file acak ke dalam variabel untuk disimpan ke dalam database
+                        $nama = $nama_file_akhir;
                     }
                 }
             } else {
@@ -192,25 +238,41 @@ class Produk extends CI_Controller {
     }
 
     public function delete($id_produk)
-	{
+    {
         $ambil = $this->M_produk->getData($id_produk);
         $cekKeranjang = $this->M_keranjang->getProduk($id_produk);
+        $cekGaleri = $this->M_galeri->getByProduk($id_produk);
 
         if($cekKeranjang){
             $this->session->set_flashdata('error_message', 'Terdapat Produk pada Keranjang');
             redirect('produk ', 'refresh');
-        }else{
+        } else {
             $name = './foto_produk/'.$ambil->foto_brg;
-    
-            $data = array('id_produk' => $id_produk);
+            
+            // Periksa apakah galeri kosong
+            if(!empty($cekGaleri)){
+                $galeri = './foto_produk/'.$cekGaleri->nama_foto;
+            } else {
+                $galeri = null;
+            }
+
+            // Hapus produk
             if(is_readable($name) && unlink($name)){
-                $this->M_produk->delete($data);
+                $this->M_produk->delete($id_produk);
+
+                // Hapus galeri jika ada
+                if(!empty($galeri) && is_readable($galeri) && unlink($galeri)){
+                    $this->M_galeri->deleteByProduk($id_produk);
+                }
+
                 $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
                 redirect('produk ', 'refresh');
+            } else {
+                echo "Hapus Gagal";
             }
         }
+    }
 
-	}
 
 
 

@@ -9,7 +9,7 @@ class M_pemesanan extends CI_Model {
         // Lakukan penyimpanan data pesanan ke dalam tabel pesanan (order)
         $data_pesanan = array(
             'id_pelanggan' => $id, // Anda harus sesuaikan dengan cara Anda mendapatkan id_pelanggan
-            'tgl_pemesanan' => date('d-m-Y H:i:s'), // Tanggal pemesanan bisa disesuaikan dengan kebutuhan
+            'tgl_pemesanan' => date('Y-m-d H:i:s'), // Tanggal pemesanan bisa disesuaikan dengan kebutuhan
             'total_bayar' => $pesanan[0]['totalbayar'], // Sesuaikan dengan cara Anda mendapatkan total_bayar
         );
 
@@ -46,4 +46,17 @@ class M_pemesanan extends CI_Model {
         $this->db->where('id_detail', $id_detail);
         $this->db->update('tb_detailpemesanan', $data);
     }
+
+    public function getCountData(){
+        return $this->db->count_all("tb_pemesanan");
+    }
+
+    public function getChartData() {
+        $query = $this->db->select('DATE_FORMAT(tgl_pemesanan, "%m") as bulan, DATE_FORMAT(tgl_pemesanan, "%Y") as tahun, SUM(total_bayar) as total')
+            ->from('tb_pemesanan')
+            ->group_by('DATE_FORMAT(tgl_pemesanan, "%Y-%m")')
+            ->get();
+        return $query->result_array();
+    }    
+    
 }

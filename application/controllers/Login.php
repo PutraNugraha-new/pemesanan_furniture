@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Login extends CI_Controller {
 
     public $status;
     public $roles;
@@ -22,12 +22,12 @@ class Main extends CI_Controller {
 	    //user data from session
 	    $data = $this->session->userdata;
 	    if(empty($data)){
-	        redirect(site_url().'main/login/');
+	        redirect(site_url().'login/login/');
 	    }
 
 	    //check user level
 	    if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
+	        redirect(site_url().'login/login/');
 	    }
 	    $dataLevel = $this->userlevel->checkLevel($data['role']);
 	    //check user level
@@ -35,9 +35,9 @@ class Main extends CI_Controller {
 	    $data['title'] = "Dashboard Admin";
 	    
         if(empty($this->session->userdata['email'])){
-            redirect(site_url().'main/login/');
+            redirect(site_url().'login/login/');
         }else{
-            redirect(site_url().'welcome');
+            redirect(site_url().'dashboard');
         }
 
 	}
@@ -53,7 +53,7 @@ class Main extends CI_Controller {
 	     //user data from session
 	    $data = $this->session->userdata;
 	    if(empty($data)){
-	        redirect(site_url().'main/login/');
+	        redirect(site_url().'login/login/');
 	    }
 	    
 	$this->load->library('user_agent');
@@ -107,10 +107,10 @@ class Main extends CI_Controller {
             $this->email->send();
             
             $this->input->set_cookie($setLogin, TRUE);
-            redirect(site_url().'main/');
+            redirect(site_url().'login/');
         }else{
             $this->input->set_cookie($setLogin, TRUE);
-            redirect(site_url().'main/');
+            redirect(site_url().'login/');
         }
 	}
 
@@ -124,7 +124,7 @@ class Main extends CI_Controller {
     {
         $data = $this->session->userdata;
         if(!empty($data['email'])){
-	        redirect(site_url().'main/');
+	        redirect(site_url().'login/');
 	    }else{
 	        $this->load->library('curl');
             $this->load->library('recaptcha');
@@ -137,10 +137,7 @@ class Main extends CI_Controller {
             $data['recaptcha'] = $result->recaptcha;
 
             if($this->form_validation->run() == FALSE) {
-                $data = array(
-                    'isi' => 'login/v_home'
-                );
-                $this->load->view('users/layout/v_wrapper', $data);
+                $this->load->view('admin/login/index', $data);
             }else{
                 $post = $this->input->post();
                 $clean = $this->security->xss_clean($post);
@@ -158,18 +155,18 @@ class Main extends CI_Controller {
                     if(!$userInfo)
                     {
                         $this->session->set_flashdata('flash_message', 'Wrong password or email.');
-                        redirect(site_url().'main/login');
+                        redirect(site_url().'login/login');
                     }
                     elseif($userInfo->banned_users == "ban")
                     {
                         $this->session->set_flashdata('danger_message', 'You’re temporarily banned from our website!');
-                        redirect(site_url().'main/login');
+                        redirect(site_url().'login/login');
                     }
                     else if(!$status['success'])
                     {
                         //recaptcha failed
                         $this->session->set_flashdata('flash_message', 'Error...! Google Recaptcha UnSuccessful!');
-                        redirect(site_url().'main/login/');
+                        redirect(site_url().'login/login/');
                         exit;
                     }
                     elseif($status['success'] && $userInfo && $userInfo->banned_users == "unban") //recaptcha check, success login, ban or unban
@@ -177,36 +174,36 @@ class Main extends CI_Controller {
                         foreach($userInfo as $key=>$val){
                         $this->session->set_userdata($key, $val);
                         }
-                        redirect(site_url().'main/checkLoginUser/');
+                        redirect(site_url().'login/checkLoginUser/');
                     }
                     else
                     {
                         $this->session->set_flashdata('flash_message', 'Something Error!');
-                        redirect(site_url().'main/login/');
+                        redirect(site_url().'login/login/');
                         exit;
                     }
                 }else{
                     if(!$userInfo)
                     {
                         $this->session->set_flashdata('flash_message', 'Wrong password or email.');
-                        redirect(site_url().'main/login');
+                        redirect(site_url().'login/login');
                     }
                     elseif($userInfo->banned_users == "ban")
                     {
                         $this->session->set_flashdata('danger_message', 'You’re temporarily banned from our website!');
-                        redirect(site_url().'main/login');
+                        redirect(site_url().'login/login');
                     }
                     elseif($userInfo && $userInfo->banned_users == "unban") //recaptcha check, success login, ban or unban
                     {
                         foreach($userInfo as $key=>$val){
                         $this->session->set_userdata($key, $val);
                         }
-                        redirect(site_url().'main/checkLoginUser/');
+                        redirect(site_url().'login/checkLoginUser/');
                     }
                     else
                     {
                         $this->session->set_flashdata('flash_message', 'Something Error!');
-                        redirect(site_url().'main/login/');
+                        redirect(site_url().'login/login/');
                         exit;
                     }
                 }
@@ -225,14 +222,14 @@ class Main extends CI_Controller {
         $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
 
         $data = array(
-            'isi'   =>  'login/v_registrasi',
+            'isi'   =>  'admin/pelanggan/v_home',
         );
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('users/layout/v_wrapper', $data, FALSE);
+            $this->load->view('admin/layout/v_wrapper', $data, FALSE);
         }else{
             if($this->user_model->isDuplicate($this->input->post('email'))){
                 $this->session->set_flashdata('flash_message', 'Username sudah digunakan');
-                redirect(site_url().'main/adduserPengguna');
+                redirect(site_url().'pelanggan');
             }else{
                 $this->load->library('password');
                 $post = $this->input->post(NULL, TRUE);
@@ -254,77 +251,16 @@ class Main extends CI_Controller {
                 }else{
                     $this->session->set_flashdata('success_message', 'Pengguna berhasil ditambahkan.');
                 }
-                redirect(site_url().'welcome');
+                redirect(site_url().'pelanggan');
             };
         }
     }
-
-    public function edit() {
-        // header('Content-Type: application/json');
-        echo json_encode($this->user_model->getData($_POST['id']));
-    }
-
-    public function update(){
-        $data = $this->session->userdata;
-        if(empty($data['role'])){
-	        redirect(site_url().'login/login/');
-	    }
-
-        //check user level
-	    if(empty($data['role'])){
-	        redirect(site_url().'login/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
-
-	    //check is admin or not
-	    if($dataLevel == "is_admin"){
-            $this->form_validation->set_rules('id', 'ID', 'required');
-            $this->form_validation->set_rules('role', 'Role', 'required');
-            $this->form_validation->set_rules('first_name', 'Nama Pengguna', 'required');
-
-            if ($this->form_validation->run() == FALSE) {
-                
-                redirect('pelanggan','refresh');
-                
-                // die();
-            }else{
-                $id = $this->input->post('id');
-                    $edit = [
-                        'id' => $id,
-                        'first_name' => $this->input->post('first_name'),
-                        'role' => $this->input->post('role'),
-                        'alamat' => $this->input->post('alamat'),
-                        'no_hp' => $this->input->post('no_hp'),
-                    ];
-
-                    // var_dump($edit);
-                    // die();
-
-                    //update to database
-                    $this->user_model->edit($edit);
-                    $this->session->set_flashdata('success_message', 'Berhasil Edit Data.');
-                    redirect(site_url().'pelanggan');
-            }
-	    }else{
-	        redirect(site_url().'pelanggan/');
-	    }
-    }
-
-    public function delete($id)
-    {
-        $this->user_model->deleteUser($id);
-
-        $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
-        redirect('pelanggan ', 'refresh');
-    }
-    
 
     //Logout
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect(site_url().'main/login/');
+        redirect(site_url().'login/login/');
     }
 
 
