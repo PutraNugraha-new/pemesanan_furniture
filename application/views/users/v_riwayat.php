@@ -1,60 +1,41 @@
-<div class="container">
+<div class="container" style="height:73vh;">
     <div class="row my-3">
-        <div class="col-md-12">
-            <div class="card bg-light">
-                <div class="card-body">
-                    <table id="datatablesSimple">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Nama Produk</th>
-                                <th>Jumlah</th>
-                                <th>Harga</th>
-                                <th>Total Pesanan</th>
-                                <th>Waktu Pemesanan</th>
-                                <th>Alamat Pengiriman</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Nama Produk</th>
-                                <th>Jumlah</th>
-                                <th>Harga</th>
-                                <th>Total Pesanan</th>
-                                <th>Waktu Pemesanan</th>
-                                <th>Alamat Pengiriman</th>
-                                <th>Status</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <?php for ($i=1; $i <= 3 ; $i++) :?>
-                            <tr>
-                                <td>
-                                    <img src="https://source.unsplash.com/random" style="width:100px;height:100px;" class="img-fluid rounded-3" alt="Bangku">
-                                </td>
-                                <td>Kitchen Set Example 6</td>
-                                <td>3</td>
-                                <td>Rp250.000</td>
-                                <td>Rp550.000</td>
-                                <td>23-12-2023</td>
-                                <td>
-                                    <p>Nanami</p>
-                                    <p>(+62)81351678870</p>
-                                    <p>Jl.Yos Sodarso6, Jl. Rizky, No.10, Kota Palangkaraya, Jekan raya, Kalimantan Tengah, 73112</p>
-                                </td>
-                                <td>
-                                    <div class="badge <?php echo ( 'proses' == 'proses' ? 'badge-danger' : 'badge-primary') ?>">
-                                        Proses
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endfor; ?>
-                        </tbody>
-                    </table>
+        <?php foreach($riwayat as $data): ?>
+        <div class="col-md-4">
+            <div class="card card-light">
+                <div class="row">
+                    <div class="col-md-5">
+                        <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" class="img-fluid" alt="Bangku">
+                        <p class="mt-4 ms-4">
+                        <?php
+                        // Tentukan kelas warna badge berdasarkan status pesanan
+                        $badge_class = ($data->status_pemesanan == 'proses') ? 'badge-danger' : 'badge-primary';
+                        ?>
+                            Status : <span class="badge <?= $badge_class ?>"><?= $data->status_pemesanan ?></span>
+                        </p>
+                        <p class="ms-4">
+                            Alamat : <br>  <?= $data->alamat ?>
+                        </p>
+                    </div>
+                    <div class="col-md-7">
+                        <h5 class="mt-2"><?= $data->nama_brg ?></h5>
+                        <p class="text-end me-4">x<?= $data->kuantitas ?></p>
+                        <p class="text-end me-4 text-primary">
+                            <?php 
+                                $harga_formatted = number_format($data->harga_satuan, 2, ',', '.');
+                                echo "Rp." . $harga_formatted;
+                            ?>
+                        </p>
+                        <p class="text-end me-4 text-primary">
+                            <?php 
+                                $harga_formatted = number_format($data->subtotal, 2, ',', '.');
+                                echo "Total Pesanan Rp." . $harga_formatted;
+                            ?>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+        <?php endforeach; ?>
     </div>
 </div>

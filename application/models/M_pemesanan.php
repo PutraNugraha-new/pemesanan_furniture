@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pemesanan extends CI_Model {
@@ -8,9 +9,8 @@ class M_pemesanan extends CI_Model {
         // Lakukan penyimpanan data pesanan ke dalam tabel pesanan (order)
         $data_pesanan = array(
             'id_pelanggan' => $id, // Anda harus sesuaikan dengan cara Anda mendapatkan id_pelanggan
-            'tgl_pemesanan' => date('Y-m-d H:i:s'), // Tanggal pemesanan bisa disesuaikan dengan kebutuhan
+            'tgl_pemesanan' => date('d-m-Y H:i:s'), // Tanggal pemesanan bisa disesuaikan dengan kebutuhan
             'total_bayar' => $pesanan[0]['totalbayar'], // Sesuaikan dengan cara Anda mendapatkan total_bayar
-            'status_pemesanan' => 'Proses'
         );
 
         // Jalankan query untuk menyimpan data ke dalam tabel pesanan (order)
@@ -28,11 +28,22 @@ class M_pemesanan extends CI_Model {
                 'id_produk' => $item['id_produk'],
                 'kuantitas' => $item['kuantitas'],
                 'harga_satuan' => $item['harga_satuan'],
-                'subtotal' => $item['subtotal']
+                'subtotal' => $item['subtotal'],
+                'status_pemesanan' => 'proses'
             );
 
             // Jalankan query untuk menyimpan data ke dalam tabel detail pesanan (order_detail)
             $this->db->insert('tb_detailpemesanan', $data_detail_pesanan);
         }
+    }
+
+    public function updateStatus($id_detail, $status) {
+        // Sesuaikan dengan struktur tabel dan query Anda
+        $data = array(
+            'status_pemesanan' => $status
+        );
+
+        $this->db->where('id_detail', $id_detail);
+        $this->db->update('tb_detailpemesanan', $data);
     }
 }

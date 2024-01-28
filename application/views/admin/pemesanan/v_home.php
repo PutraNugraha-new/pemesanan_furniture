@@ -6,124 +6,106 @@
         <table id="datatablesSimple">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Nama Pelanggan</th>
-                    <th>Produk</th>
-                    <th>Jenis Prduk</th>
-                    <th>Aksi</th>
+                <th>No</th>
+                    <th>Foto</th>
+                    <th>Nama Produk</th>
+                    <th>Pelanggan / username</th>
+                    <th>No WA</th>
+                    <th>Alamat</th>
+                    <th>Tgl Pemesanan</th>
+                    <th>Kuantitas</th>
+                    <th>Harga</th>
+                    <th>Subtotal</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>No</th>
-                    <th>Nama Pelanggan</th>
-                    <th>Produk</th>
-                    <th>Jenis Prduk</th>
-                    <th>Aksi</th>
+                    <th>Foto</th>
+                    <th>Nama Produk</th>
+                    <th>Pelanggan / username</th>
+                    <th>No WA</th>
+                    <th>Alamat</th>
+                    <th>Tgl Pemesanan</th>
+                    <th>Kuantitas</th>
+                    <th>Harga</th>
+                    <th>Subtotal</th>
+                    <th>Status</th>
                 </tr>
             </tfoot>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Sukuna</td>
-                    <td>Kitchen Set Example 7</td>
-                    <td>kitchen set Set</td>
-                    <td>
-                        <a href="#" data-bs-toggle="modal" data-id="2" data-bs-target="#modalproduk" class="btn tampilModalUbah btn-primary p-1" data-toggle="tooltip" data-placement="bottom" title="Edit Data">
-                            <i class="fa-solid fa-pencil"></i>
-                        </a>
-                        <a href="" class="btn btn-danger p-1" data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                        <a href="#" class="btn btn-secondary p-1" data-toggle="tooltip" data-placement="bottom" title="Detail Data">
-                            <i class="fa-solid fa-eye"></i>
-                        </a>
-                    </td>
-                </tr>
+                <?php $no=1; foreach($riwayat as $data): ?>
+                    <tr>
+                        <td><?= $no; ?></td>
+                        <td>
+                            <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" style="width:100px;height:100px;" class="img-fluid rounded-3" alt="Bangku">
+                        </td>
+                        <td><?= $data->nama_brg ?></td>
+                        <td><?= $data->first_name ?> / <?= $data->email ?></td>
+                        <td><?= $data->no_hp ?></td>
+                        <td><?= $data->alamat ?></td>
+                        <td><?= $data->tgl_pemesanan ?></td>
+                        <td><?= $data->kuantitas ?></td>
+                        <td>
+                            <?php 
+                                $harga_formatted = number_format($data->harga_satuan, 2, ',', '.');
+                                echo "Rp." . $harga_formatted;
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                $harga_formatted = number_format($data->subtotal, 2, ',', '.');
+                                echo "Rp." . $harga_formatted;
+                            ?>
+                        </td>
+                        <td>
+                            <button class="btn p-1 status" data-status="<?= $data->status_pemesanan ?>" data-id="<?= $data->id_detail ?>"><?= $data->status_pemesanan ?></button>
+                        </td>
+                    </tr>
+                <?php $no++; endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
 
-<!-- modal -->
-<div class="modal fade" id="modalproduk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Data Pesanan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="kecamatan/add" class="form form-horizontal" method="POST">
-                    <div class="form-body">
-                    <div class="row">
-                            <div class="col-md-4">
-                                <label for="nama_pelanggan">Nama Pelanggan</label>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" placeholder="Nama Pelanggan" name="nama_pelanggan" id="nama_pelanggan" required>
-                                <?php echo form_error('nama_pelanggan', '<div class="alert alert-danger" role="alert">', '</div>') ?>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="nama_produk">Produk</label>
-                            </div>
-                            <div class="col-md-8 my-2">
-                                <input type="text" class="form-control" name="nama_produk" placeholder="Nama Produk.." required>    
-                            </div>
-                            <div class="col-md-4">
-                                <label for="jenis_produk">Jenis Produk</label>
-                            </div>
-                            <div class="col-md-8">
-                                <select name="jenis_produk" id="jenis_produk" class="form-control" required>
-                                    <option value="">Jenis Produk</option>
-                                    <option value="Kitchen Set">Kitchen Set</option>
-                                    <option value="Backdrop Tv">Backdrop Tv</option>
-                                    <option value="Backdrop Dinding">Backdrop Dinding</option>
-                                    <option value="Lemari Pakaian">Lemari Pakaian</option>
-                                    <option value="Lemari Pembatas">Lemari Pembatas</option>
-                                    <option value="Meja Bar">Meja Bar</option>
-                                    <option value="Kursi Sofa">Kursi Sofa</option>
-                                </select>
-                                <?php echo form_error('jenis_produk', '<div class="alert alert-danger" role="alert">', '</div>') ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <div class="modal-footer">
-                <button type="reset" class="btn btn-success me-1 mb-1">Reset</button>
-                <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     $(document).ready(function() {
-        $('.tampilModalUbah').on('click', function() {
-            const id = $(this).data('id');
-            // $('#exampleModalLabel').html('Ubah Data');
-            $('.modal-body form').attr('action', 'produk/update/'+id);
-            $('#nama_produk').val(id);
-            // console.log(id);
+        $('.status').each(function() {
+            var currentStatus = $(this).data('status'); // Mendapatkan status saat ini dari data atribut
+            if (currentStatus === 'proses') {
+                $(this).removeClass('btn-primary').addClass('btn-danger');
+            } else if (currentStatus === 'selesai') {
+                $(this).removeClass('btn-danger').addClass('btn-primary');
+            }
+        });
+        $('.status').on('click', function() {
+            var id = $(this).data('id');
+            var currentStatus = $(this).data('status'); // Mendapatkan status saat ini dari data atribut
+            var newStatus = (currentStatus === 'proses') ? 'selesai' : 'proses'; // Mengubah status sesuai dengan kondisi saat ini
+            console.log(newStatus);
 
-
-            // $.ajax({
-            //     url: 'produk/edit',
-            //     data: {id : id},
-            //     method: 'post',
-            //     dataType:'json',
-            //     success:function(data){
-            //         $('#nama_kec').empty();
-            //         $('#kode_kec').empty();
-            //         $('#kabupaten').val(data.kode_kab);
-            //         $('#kode_kec').val(data.kode_kec);
-            //         $('#nama_kec').val(data.nama_kec);
-            //         $('#kode_kec').prop('readonly', true)
-            //         $('#kabupaten').prop('readonly', true)
-            //     }
-            // });
+            $.ajax({
+                url: '<?= base_url("pemesanan/updateProses") ?>',
+                data: {
+                    id : id,
+                    status: newStatus
+                },
+                method: 'post',
+                dataType:'json',
+                success:function(response){
+                    console.log(response);
+                    if (newStatus === 'proses') {
+                        $(this).removeClass('btn-primary').addClass('btn-danger').text('proses');
+                    } else if (newStatus === 'selesai') {
+                        $(this).removeClass('btn-danger').addClass('btn-primary').text('selesai');
+                    }
+                    location.reload();
+                }, 
+                error: function (xhr, status, error) {
+                    console.error("Error: " + status, error);
+                }
+            });
         });
     });
 </script>
