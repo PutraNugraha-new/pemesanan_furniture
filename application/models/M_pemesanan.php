@@ -54,7 +54,7 @@ class M_pemesanan extends CI_Model {
     public function getChartData() {
         $query = $this->db->select('DATE_FORMAT(tgl_pemesanan, "%m") as bulan, DATE_FORMAT(tgl_pemesanan, "%Y") as tahun, SUM(total_bayar) as total')
             ->from('tb_pemesanan')
-            ->group_by('DATE_FORMAT(tgl_pemesanan, "%Y-%m")')
+            ->group_by('DATE_FORMAT(tgl_pemesanan, "%Y-%m"), tgl_pemesanan')
             ->get();
         return $query->result_array();
     }    
