@@ -19,6 +19,7 @@ class Welcome extends CI_Controller {
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
         $this->load->library('userlevel');
+		$this->load->library('email');
     }
 
 	public function index()
@@ -212,13 +213,55 @@ class Welcome extends CI_Controller {
 
 	public function simpan_pesanan() {
         // Ambil data pesanan dari POST request
+		$user = $this->session->userdata;
         $pesanan = $this->input->post('pesanan');
 		$id = $this->session->userdata['id'];
 
-        // Simpan data pesanan ke dalam tabel pesanan (order)
+		$nama_pelanggan = $user['first_name'];
+        $tanggal_pesanan = date('Y-m-d');
+        $total_pembayaran = 0;
+
+		foreach ($pesanan as $item) {
+			$total_pembayaran += (float)$item['totalbayar'];
+		}
+		$totalbayar = "Total Pembayaran: Rp " . number_format($total_pembayaran, 2);
         $id_pesanan = $this->M_pemesanan->simpan_pesanan($pesanan, $id);
 
-        if($id_pesanan){
+		$subject = 'Pemberitahuan: Pesanan Baru Diterima';
+        $message = "Dear Admin,<br><br>
+		Anda menerima pemberitahuan ini karena telah ada pesanan baru yang dibuat di sistem. Berikut adalah detailnya:<br><br>
+		ID Pesanan: $id_pesanan<br>
+		Nama Pelanggan: $nama_pelanggan<br>
+		Tanggal Pesanan: $tanggal_pesanan<br>
+		Total Pembayaran: $totalbayar<br><br>
+		Silakan segera cek sistem untuk detail lebih lanjut dan tindak lanjuti pesanan tersebut.<br><br>
+		Terima kasih.<br><br>
+		Salam,<br>
+		[Blesing Home Art]";
+
+        // Simpan data pesanan ke dalam tabel pesanan (order)
+
+		 // Pengaturan email
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'smtp.gmail.com';
+		$config['smtp_port'] = 587;
+		$config['smtp_user'] = 'simpandrive803@gmail.com'; // Ganti dengan alamat email Anda
+		$config['smtp_pass'] = 'tleydnzevvrvmbda'; // Ganti dengan kata sandi email Anda
+		$config['smtp_crypto'] = 'tls';
+		$config['charset'] = 'utf-8';
+		$config['mailtype'] = 'html';
+		$config['newline'] = "\r\n";
+	
+		// Load konfigurasi email
+		$this->email->initialize($config);
+		 // Pengaturan email
+		 $this->email->from('simpandrive803@gmail.com', 'Admin'); // Ganti dengan alamat email dan nama Anda
+		 $this->email->to('putranugraha803@gmail.com'); // Ganti dengan alamat email penerima
+		
+		$this->email->subject($subject);
+		$this->email->message($message);
+
+        if(($id_pesanan) && ($this->email->send())){
 			$this->M_pemesanan->simpan_detail_pesanan($id_pesanan, $pesanan);
 			$this->M_keranjang->deleteById($id);
 
