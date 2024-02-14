@@ -14,7 +14,7 @@
                     <th>Alamat</th>
                     <th>Tgl Pemesanan</th>
                     <th>Kuantitas</th>
-                    <th>Harga</th>
+                    <th>Ukuran</th>
                     <th>Subtotal</th>
                     <th>Status</th>
                 </tr>
@@ -29,8 +29,8 @@
                     <th>Alamat</th>
                     <th>Tgl Pemesanan</th>
                     <th>Kuantitas</th>
-                    <th>Harga</th>
-                    <th>Subtotal</th>
+                    <th>Ukuran</th>
+                    <th>Total</th>
                     <th>Status</th>
                 </tr>
             </tfoot>
@@ -48,16 +48,10 @@
                         <td><?= $data->tgl_pemesanan ?></td>
                         <td><?= $data->kuantitas ?></td>
                         <td>
-                            <?php 
-                                $harga_formatted = number_format($data->harga_satuan, 2, ',', '.');
-                                echo "Rp." . $harga_formatted;
-                            ?>
+                            Tinggi:<?= $data->tinggi_dipesan ?>/ <br> Lebar:<?= $data->lebar_dipesan ?>m<sup>2</sup>
                         </td>
                         <td>
-                            <?php 
-                                $harga_formatted = number_format($data->subtotal, 2, ',', '.');
-                                echo "Rp." . $harga_formatted;
-                            ?>
+                            Rp.<?= $data->total_bayar ?>
                         </td>
                         <td>
                             <button class="btn p-1 status" data-status="<?= $data->status_pemesanan ?>" data-id="<?= $data->id_detail ?>"><?= $data->status_pemesanan ?></button>

@@ -53,7 +53,6 @@ class Produk extends CI_Controller {
     {
         $this->form_validation->set_rules('nama_brg', 'Nama Barang', 'required');
         $this->form_validation->set_rules('jenis_brg', 'Jenis Barang', 'required');
-        $this->form_validation->set_rules('harga', 'Harga', 'required');
         $this->form_validation->set_rules('stok', 'Stok', 'required');
         $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
 
@@ -95,11 +94,31 @@ class Produk extends CI_Controller {
                     $nama_file_disimpan = $nama_file_akhir;
                 }
             }
+            $tinggi_input = $this->input->post('tinggi');
+            $lebar_input = $this->input->post('lebar');
+            $harga_permeter = floatval($this->input->post('harga_permeter'));
+
+            $tinggi = floatval(str_replace(',', '.', $tinggi_input));
+            $lebar = floatval(str_replace(',', '.', $lebar_input));
+
+            // Validasi bahwa input adalah nilai numerik
+            if (!is_numeric($tinggi) || !is_numeric($lebar) || !is_numeric($harga_permeter)) {
+                echo "Input harus berupa nilai numerik.";
+                return;
+            }
+
+            $total_ukuran = $tinggi * $lebar;
+            $harga = $total_ukuran * $harga_permeter;
+            $formatted_total_harga = number_format($harga, 0, ',', '.');
+
             $tambah = [
                 'nama_brg' => $this->input->post('nama_brg'),
                 'jenis_brg' => $this->input->post('jenis_brg'),
                 'deskripsi' => $this->input->post('deskripsi'),
-                'harga' => $this->input->post('harga'),
+                'harga' => $formatted_total_harga,
+                'harga_permeter' => $harga_permeter,
+                'tinggi' => $tinggi,
+                'lebar' => $lebar,
                 'stok' => $this->input->post('stok'),
                 'foto_brg' => (!empty($nama_file_disimpan)) ? $nama_file_disimpan : null,
             ];

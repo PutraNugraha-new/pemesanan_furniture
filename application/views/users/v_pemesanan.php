@@ -23,18 +23,17 @@
                                 <td><?= $data->nama_brg ?></td>
                                 <td>
                                     <p id="harga" data-harga="<?= $data->harga ?>">
-                                        <?php 
-                                            $harga_formatted = number_format($data->harga, 2, ',', '.');
-                                            echo "Rp." . $harga_formatted;
-                                        ?>
+                                        Rp. <?= $data->harga ?>
                                     </p>
                                 </td>
                                 <td>
-                                    <input type="number" value="<?= $data->kuantitas ?>" data-id="<?= $data->id_keranjang ?>" name="jumlah" value="<?= $data->kuantitas ?>" style="width:80px;" class="form-control" id="jumlah">
+                                    <input type="number" readonly value="<?= $data->kuantitas ?>" data-id="<?= $data->id_keranjang ?>" name="jumlah" value="<?= $data->kuantitas ?>" style="width:80px;" class="form-control" id="jumlah">
                                     <input type="hidden" value="<?= $data->id_produk ?>" data-id="<?= $data->id_keranjang ?>" name="idProduk" value="<?= $data->id_produk ?>" style="width:80px;" id="idProduk">
+                                    <input type="hidden" value="<?= $data->tinggi_dipesan ?>" name="tinggi" id="tinggi">
+                                    <input type="hidden" value="<?= $data->lebar_dipesan ?>" name="lebar" id="lebar">
                                 </td>
                                 <td>
-                                    <p id="total"></p>
+                                    <p id="total" data-total="<?= $data->harga_dipesan ?>">Rp.<?= $data->harga_dipesan ?></p>
                                 </td>
                                 <td>
                                     <button class="btn btn-primary hapusProduk" data-id="<?= $data->id_keranjang ?>">
@@ -67,7 +66,7 @@
                 </tr>
             </table>
             <button class="btn btn-danger">Batalkan</button>
-            <button class="btn btn-primary" id="pesanButton">Pesan</button>
+            <button class="btn btn-primary pesanButton" id="pesanButton">Pesan</button>
         </div>
     </div>
 </div>
@@ -75,56 +74,16 @@
 <script>
     $(document).ready(function () {
         function hitungTotalAwal() {
-            var subtotal = 0;
-            $('input[name="jumlah"]').each(function () {
-                var jumlah = $(this).val();
-                var harga = $(this).closest('tr').find('#harga').data('harga');
-                var total = jumlah * harga;
-                subtotal += total;
-                $(this).closest('tr').find('#total').text('Rp.' + total.toLocaleString('id-ID'));
-            });
+            var subtotal = parseInt($('#total').data('total').replace(/\./g, ''), 10);
             $('#subtotal').text('Rp.' + subtotal.toLocaleString('id-ID'));
-            var ongkir = $('#ongkir').data('ongkir');
+            var ongkir = parseInt($('#ongkir').data('ongkir'), 10);
             var totalAkhir = subtotal + ongkir;
             $('#totalAkhir').text('Rp.' + totalAkhir.toLocaleString('id-ID'));
         }
 
+
         // Panggil fungsi hitungTotalAwal saat halaman dimuat
         hitungTotalAwal();
-        // Event listener untuk setiap perubahan pada input jumlah
-        $('input[name="jumlah"]').on('input', function () {
-
-            var id = $(this).data('id');
-            console.log(id);
-
-            // Ambil nilai jumlah dan harga dari atribut data-harga
-            var jumlah = $(this).val();
-            var harga = $(this).closest('tr').find('#harga').data('harga');
-
-             // Hitung total
-            var total = jumlah * harga;
-            // Tampilkan total pada elemen dengan id "total"
-            $(this).closest('tr').find('#total').text('Rp.' + total.toLocaleString('id-ID'));
-            // Panggil kembali fungsi hitungTotalAwal setelah perubahan
-            hitungTotalAwal();
-            
-
-            $.ajax({
-                url: '<?= base_url("welcome/update_cart") ?>',
-                data: {
-                    id : id,
-                    jumlah: jumlah
-                },
-                method: 'post',
-                dataType:'json',
-                success:function(response){
-                    console.log(response);
-                }, 
-                error: function (xhr, status, error) {
-                    console.error("Error: " + status, error);
-                }
-            });
-        });
 
         $('.hapusProduk').on('click', function () {
 
@@ -147,7 +106,7 @@
         });
     });
 
-    $(document).on('click', '#pesanButton', function() {
+    $(document).on('click', '.pesanButton', function() {
         var pesanan = [];
         
         // console.log(totalbayar);        
@@ -156,17 +115,25 @@
             var id_produk_cek = $(this).find('input[name="idProduk"]');
             var kuantitas_cek = $(this).find('input[name="jumlah"]');
             var harga_satuan_cek = $(this).find('#harga');
+            var tinggi = $(this).find('#tinggi');
+            var lebar = $(this).find('#lebar');
+            
 
             if(id_produk_cek.length > 0 && kuantitas_cek.length > 0 && harga_satuan_cek.length > 0){
                 var id_produk =id_produk_cek.val();
                 var kuantitas = kuantitas_cek.val();
+                var tinggi = tinggi.val();
+                var lebar = lebar.val();
                 var harga_satuan = harga_satuan_cek.data('harga');
-                var subtotal = kuantitas * harga_satuan; // Hilangkan Rp dan koma, dan hapus spasi
-                var totalbayar = $('#totalAkhir').text().replace('Rp.', '').replace('.', '').trim();
+                var subtotal =parseInt($('#total').data('total').replace(/\./g, ''), 10);
+                var totalbayar = $('#totalAkhir').text().replace('Rp.', '').trim();
+                
 
             // Tambahkan data pesanan ke array
                 pesanan.push({
                     id_produk: id_produk,
+                    tinggi: tinggi,
+                    lebar: lebar,
                     kuantitas: kuantitas,
                     harga_satuan: harga_satuan,
                     subtotal: subtotal,

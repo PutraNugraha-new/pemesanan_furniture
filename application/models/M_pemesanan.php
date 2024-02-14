@@ -26,6 +26,8 @@ class M_pemesanan extends CI_Model {
             $data_detail_pesanan = array(
                 'id_pemesanan' => $id_pesanan,
                 'id_produk' => $item['id_produk'],
+                'tinggi_dipesan' => $item['tinggi'],
+                'lebar_dipesan' => $item['lebar'],
                 'kuantitas' => $item['kuantitas'],
                 'harga_satuan' => $item['harga_satuan'],
                 'subtotal' => $item['subtotal'],

@@ -123,9 +123,9 @@ class Welcome extends CI_Controller {
 	}
 
 	public function add_to_cart(){
-        $id_produk = $this->input->post('id');
+        $id_produk = $this->input->post('id_produk');
 		$id = $this->session->userdata['id'];
-		$quantity = 1;
+		$quantity = $this->input->post('jumlah');
 
 		// Cek apakah produk sudah ada di keranjang
 		$existingItem = $this->M_keranjang->get_item_by_product_id($id_produk, $id);
@@ -141,14 +141,16 @@ class Welcome extends CI_Controller {
 			$data = array(
 				'id' => $this->session->userdata['id'],
 				'id_produk' => $id_produk,
-				'kuantitas' => $quantity
-				// ... (sesuaikan dengan struktur tabel Anda)
+				'tinggi_dipesan' => $this->input->post('tinggi'),
+				'lebar_dipesan' => $this->input->post('lebar'),
+				'harga_dipesan' => $this->input->post('harga'),
+				'kuantitas' => $quantity,
 			);
+
 			$this->M_keranjang->add($data);
+			$this->session->set_flashdata('success_message', 'Produk Ditambahkan Pemesanan');
+            redirect(site_url().'welcome/produk');
 		}
-	
-		// Response sukses
-		echo json_encode(['status' => 'success']);
     }
 
 	public function update_cart(){
@@ -222,9 +224,9 @@ class Welcome extends CI_Controller {
         $total_pembayaran = 0;
 
 		foreach ($pesanan as $item) {
-			$total_pembayaran += (float)$item['totalbayar'];
+			$total_pembayaran += (int) str_replace(['Rp.', '.'], ['', ''], $item['totalbayar']);
 		}
-		$totalbayar = "Total Pembayaran: Rp " . number_format($total_pembayaran, 2);
+		$total_bayar = number_format($total_pembayaran, 0, ',', '.');
         $id_pesanan = $this->M_pemesanan->simpan_pesanan($pesanan, $id);
 
 		$subject = 'Pemberitahuan: Pesanan Baru Diterima';
@@ -233,7 +235,7 @@ class Welcome extends CI_Controller {
 		ID Pesanan: $id_pesanan<br>
 		Nama Pelanggan: $nama_pelanggan<br>
 		Tanggal Pesanan: $tanggal_pesanan<br>
-		Total Pembayaran: $totalbayar<br><br>
+		Total Pembayaran: Rp. $total_bayar <br><br>
 		Silakan segera cek sistem untuk detail lebih lanjut dan tindak lanjuti pesanan tersebut.<br><br>
 		Terima kasih.<br><br>
 		Salam,<br>

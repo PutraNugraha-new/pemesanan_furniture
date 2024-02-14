@@ -24,15 +24,16 @@
                     <label for="jenis_brg">Jenis Produk</label>
                     <select name="jenis_brg" id="jenis_brg" class="form-control" required>
                         <option value="">Jenis Produk</option>
-                        <option value="Kitchen Set">Kitchen Set</option>
-                        <option value="Backdrop Tv">Backdrop Tv</option>
-                        <option value="Backdrop Dinding">Backdrop Dinding</option>
-                        <option value="Lemari Pakaian">Lemari Pakaian</option>
-                        <option value="Lemari Pembatas">Lemari Pembatas</option>
-                        <option value="Meja Bar">Meja Bar</option>
-                        <option value="Kursi Sofa">Kursi Sofa</option>
+                        <option value="Lemari">Lemari</option>
+                        <option value="kitchen set">kitchen set</option>
                     </select>
                     <?php echo form_error('jenis_brg', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-2">
+                    <label for="harga">Harga Permeter</label>
+                    <input type="number" class="form-control" name="harga_permeter" placeholder="012345.." required>
+                    <small class="text-warning">Masukan tanpa koma atau titik</small>
+                    <?php echo form_error('harga', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
                 <div class="col-md-2">
                     <label for="jumlah">Jumlah</label>
@@ -40,11 +41,16 @@
                     <?php echo form_error('jumlah', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row my-2">
                 <div class="col-md-4">
-                    <label for="harga">Harga</label>
-                    <input type="number" class="form-control" name="harga" placeholder="Harga Satuan/set" required>
-                    <?php echo form_error('harga', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                    <label for="tinggi">Tinggi <span>m<sup>2</sup></span></label>
+                    <input type="text" class="form-control" name="tinggi" placeholder="tinggi" required>
+                    <?php echo form_error('tinggi', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-4">
+                    <label for="lebar">Lebar <span>m<sup>2</sup></span></label>
+                    <input type="text" class="form-control" name="lebar" placeholder="lebar" required>
+                    <?php echo form_error('lebar', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
                 <div class="col-md-3">
                     <label for="foto_brg">Foto Produk</label>
@@ -202,11 +208,6 @@
     $(document).ready(function() {
         $('.tampilModalUbah').on('click', function() {
             const id = $(this).data('id');
-            // $('#exampleModalLabel').html('Ubah Data');
-            $('.modal-body form').attr('action', 'produk/update/'+id);
-            $('#nama_produk').val(id);
-            // console.log(id);
-
 
             $.ajax({
                 url: 'produk/edit',

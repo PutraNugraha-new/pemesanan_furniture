@@ -21,16 +21,10 @@
                         <h5 class="mt-2"><?= $data->nama_brg ?></h5>
                         <p class="text-end me-4">x<?= $data->kuantitas ?></p>
                         <p class="text-end me-4 text-primary">
-                            <?php 
-                                $harga_formatted = number_format($data->harga_satuan, 2, ',', '.');
-                                echo "Rp." . $harga_formatted;
-                            ?>
+                            Rp. <?= $data->harga_satuan ?>
                         </p>
                         <p class="text-end me-4 text-primary">
-                            <?php 
-                                $harga_formatted = number_format($data->subtotal, 2, ',', '.');
-                                echo "Total Pesanan Rp." . $harga_formatted;
-                            ?>
+                            Total Pesanan : Rp. <?= $data->total_bayar ?>
                         </p>
                     </div>
                 </div>
