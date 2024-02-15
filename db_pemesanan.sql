@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2024 at 06:53 AM
+-- Generation Time: Feb 15, 2024 at 12:59 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -52,11 +52,23 @@ CREATE TABLE `tb_detailpemesanan` (
   `id_detail` int(11) NOT NULL,
   `id_pemesanan` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
+  `tinggi_dipesan` decimal(10,2) NOT NULL,
+  `lebar_dipesan` decimal(10,2) NOT NULL,
   `kuantitas` int(11) DEFAULT NULL,
-  `harga_satuan` decimal(10,2) DEFAULT NULL,
-  `subtotal` decimal(10,2) DEFAULT NULL,
+  `harga_satuan` varchar(20) DEFAULT NULL,
+  `subtotal` varchar(20) DEFAULT NULL,
   `status_pemesanan` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_detailpemesanan`
+--
+
+INSERT INTO `tb_detailpemesanan` (`id_detail`, `id_pemesanan`, `id_produk`, `tinggi_dipesan`, `lebar_dipesan`, `kuantitas`, `harga_satuan`, `subtotal`, `status_pemesanan`) VALUES
+(78, 60, 34, '2.40', '2.00', 1, '10.560.000', '16260000', 'proses'),
+(79, 60, 35, '1.00', '3.00', 1, '5.700.000', '16260000', 'proses'),
+(80, 61, 34, '2.40', '2.00', 4, '10.560.000', '53640000', 'selesai'),
+(81, 61, 35, '1.00', '3.00', 2, '5.700.000', '53640000', 'proses');
 
 -- --------------------------------------------------------
 
@@ -106,6 +118,9 @@ CREATE TABLE `tb_keranjang` (
   `id_keranjang` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
+  `tinggi_dipesan` decimal(10,2) NOT NULL,
+  `lebar_dipesan` decimal(10,2) NOT NULL,
+  `harga_dipesan` varchar(20) NOT NULL,
   `kuantitas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -119,8 +134,16 @@ CREATE TABLE `tb_pemesanan` (
   `id_pemesanan` int(11) NOT NULL,
   `id_pelanggan` int(11) NOT NULL,
   `tgl_pemesanan` datetime DEFAULT NULL,
-  `total_bayar` decimal(10,2) NOT NULL
+  `total_bayar` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tb_pemesanan`
+--
+
+INSERT INTO `tb_pemesanan` (`id_pemesanan`, `id_pelanggan`, `tgl_pemesanan`, `total_bayar`) VALUES
+(60, 8, '2024-02-15 11:37:21', '16.560.000'),
+(61, 8, '2024-02-15 12:27:30', '53.940.000');
 
 -- --------------------------------------------------------
 
@@ -133,7 +156,10 @@ CREATE TABLE `tb_produk` (
   `nama_brg` varchar(100) NOT NULL,
   `jenis_brg` varchar(100) DEFAULT NULL,
   `deskripsi` text DEFAULT NULL,
-  `harga` decimal(10,2) DEFAULT NULL,
+  `harga` varchar(20) DEFAULT NULL,
+  `harga_permeter` decimal(10,2) DEFAULT NULL,
+  `tinggi` decimal(10,2) DEFAULT NULL,
+  `lebar` decimal(10,2) DEFAULT NULL,
   `stok` int(11) DEFAULT NULL,
   `foto_brg` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -142,15 +168,9 @@ CREATE TABLE `tb_produk` (
 -- Dumping data for table `tb_produk`
 --
 
-INSERT INTO `tb_produk` (`id_produk`, `nama_brg`, `jenis_brg`, `deskripsi`, `harga`, `stok`, `foto_brg`) VALUES
-(24, 'Lemari', 'Lemari Pakaian', '-', '200000.00', 1, '20QS3Tn4XFswtdgu.jpg'),
-(25, 'Dinding Pembatas', 'Backdrop Dinding', '-', '200000.00', 1, '1VM0PzjFvd9hpKWo.jpg'),
-(26, 'Lemari v1', 'Lemari Pembatas', '-', '20000.00', 1, 'GydbX84AT9NZErlm.jpg'),
-(27, 'Lemari v3', 'Lemari Pembatas', '-', '200000.00', 1, 'Sd8jRZtgq35JH4nF.jpg'),
-(28, 'Lemari baju', 'Lemari Pakaian', '-', '5000000.00', 1, 'm5XLurS1sQONzJ6F.jpg'),
-(29, 'Kitchen set v1', 'Kitchen Set', '-', '700000.00', 1, 'rJ2coqfWkUITyeSi.jpg'),
-(30, 'kitchen set v2', 'Kitchen Set', '-', '800000.00', 1, 'ys08VcU2Huq1BerL.jpg'),
-(31, 'Lemari Mewah', 'Lemari Pakaian', '-', '12000000.00', 3, 'KQPTtAo4Y5FSgWps.jpg');
+INSERT INTO `tb_produk` (`id_produk`, `nama_brg`, `jenis_brg`, `deskripsi`, `harga`, `harga_permeter`, `tinggi`, `lebar`, `stok`, `foto_brg`) VALUES
+(34, 'Lemari Pakaian', 'Lemari', 'awdawd', '10.560.000', '2200000.00', '2.40', '2.00', 1, 'q2lteum0bK3XNJ5H.jpg'),
+(35, 'Kitchen Set', 'kitchen set', 'wwda', '5.700.000', '1900000.00', '1.00', '3.00', 1, 'kgC93TjZf8lvwy7p.jpg');
 
 -- --------------------------------------------------------
 
@@ -190,9 +210,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `alamat`, `no_hp`, `role`, `password`, `last_login`, `status`, `banned_users`) VALUES
-(1, 'admin@gmail.com', 'Admin', 'Admin', '-', '0', '1', 'sha256:1000:UJxHaaFpM44Bj1ka7U58GiSHUx3zRWid:Hq86/PHYj0utJLz2ciHzSehsidHAZX+A', '2024-01-28 06:59:56 PM', 'approved', 'unban'),
-(3, 'putra', 'putra', NULL, 'pky', '081351678870', '2', 'sha256:1000:yhkLETgVloUWIpKaHxnCrMHBpVpihy5k:/iuqzVDoZELQ0h1+/DQ8rjUk6ry2mkVn', '2024-01-28 06:59:23 PM', 'approved', 'unban'),
-(4, 'odoi', 'odoii', NULL, 'pky', '082128481981', '2', 'sha256:1000:YjqXWUf4f6wzCaMgC59NI33x22DSaR3n:cn/No+IN2kMO7g9iBAORikqI8/m5GsMG', '2024-01-28 05:49:47 PM', 'approved', 'unban');
+(1, 'admin@gmail.com', 'Admin', 'Admin', '-', '0', '1', 'sha256:1000:UJxHaaFpM44Bj1ka7U58GiSHUx3zRWid:Hq86/PHYj0utJLz2ciHzSehsidHAZX+A', '2024-02-15 06:29:01 AM', 'approved', 'unban'),
+(3, 'putra', 'putra', NULL, 'pky', '081351678870', '2', 'sha256:1000:yhkLETgVloUWIpKaHxnCrMHBpVpihy5k:/iuqzVDoZELQ0h1+/DQ8rjUk6ry2mkVn', '2024-02-14 06:13:15 PM', 'approved', 'unban'),
+(4, 'odoi', 'odoii', NULL, 'pky', '082128481981', '2', 'sha256:1000:YjqXWUf4f6wzCaMgC59NI33x22DSaR3n:cn/No+IN2kMO7g9iBAORikqI8/m5GsMG', '2024-01-28 05:49:47 PM', 'approved', 'unban'),
+(8, 'odoiboi', 'odoiboi', NULL, 'palangka', '081298371947821', '2', 'sha256:1000:9/NWOJdaRh41+GrrqVlQ8MAX7QtN6yas:GG9oi3J0FxsWBF+27kJHuBYFIkTnwcRW', '2024-02-15 06:34:46 AM', 'approved', 'unban');
 
 --
 -- Indexes for dumped tables
@@ -260,7 +281,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `tb_detailpemesanan`
 --
 ALTER TABLE `tb_detailpemesanan`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `tb_foto`
@@ -272,19 +293,19 @@ ALTER TABLE `tb_foto`
 -- AUTO_INCREMENT for table `tb_keranjang`
 --
 ALTER TABLE `tb_keranjang`
-  MODIFY `id_keranjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_keranjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `tb_pemesanan`
 --
 ALTER TABLE `tb_pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `tb_produk`
 --
 ALTER TABLE `tb_produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tokens`
@@ -296,7 +317,7 @@ ALTER TABLE `tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
