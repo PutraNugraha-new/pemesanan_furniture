@@ -126,7 +126,14 @@ class Welcome extends CI_Controller {
         $id_produk = $this->input->post('id_produk');
 		$id = $this->session->userdata['id'];
 		$quantity = $this->input->post('jumlah');
+		// Mendapatkan nilai harga dari input dan mengganti koma menjadi titik
+		$harga_input = str_replace(',', '.', $this->input->post('harga'));
 
+		// Mengonversi nilai harga menjadi float
+		$harga_float = floatval($harga_input);
+
+		// Mengalikan nilai dengan faktor untuk mengubahnya ke dalam satuan rupiah
+		$harga_rupiah = $harga_float * 1000000; // 1 juta (untuk mengubah dari jutaan menjadi rupiah)
 		// Cek apakah produk sudah ada di keranjang
 		$existingItem = $this->M_keranjang->get_item_by_product_id($id_produk, $id);
     
@@ -135,7 +142,16 @@ class Welcome extends CI_Controller {
 		if ($existingItem) {
 			// Produk sudah ada di keranjang, perbarui jumlahnya
 			$newQuantity = $existingItem->kuantitas + $quantity;
-			$this->M_keranjang->update_jumlah_produk($existingItem->id_keranjang, $newQuantity);
+			$cek_hargadipesan = str_replace(',', '.', $existingItem->harga_dipesan);
+			$cek_harga_float = floatval($harga_input);
+			$cek_harga_rupiah = $harga_float * 1000000;
+			
+			$newharga_dipesan = $harga_rupiah + $cek_harga_rupiah;	
+			$newharga_format= number_format($newharga_dipesan, 0, ',', '.');
+			// $total_harga_format = number_format($total_harga, 0, ',', '.');
+			$this->M_keranjang->update_jumlah_produk($existingItem->id_keranjang, $newQuantity, $newharga_format);
+			$this->session->set_flashdata('success_message', 'Produk Ditambahkan Pemesanan');
+            redirect(site_url().'welcome/produk');
 		} else {
 			// Produk belum ada di keranjang, tambahkan sebagai item baru
 			$data = array(
@@ -224,9 +240,10 @@ class Welcome extends CI_Controller {
         $total_pembayaran = 0;
 
 		foreach ($pesanan as $item) {
-			$total_pembayaran += (int) str_replace(['Rp.', '.'], ['', ''], $item['totalbayar']);
-		}
-		$total_bayar = number_format($total_pembayaran, 0, ',', '.');
+            $totalbayar = $item['totalbayar'];
+            // Lakukan apa pun yang perlu Anda lakukan dengan nilai totalbayar di sini
+        }
+
         $id_pesanan = $this->M_pemesanan->simpan_pesanan($pesanan, $id);
 
 		$subject = 'Pemberitahuan: Pesanan Baru Diterima';
@@ -235,7 +252,7 @@ class Welcome extends CI_Controller {
 		ID Pesanan: $id_pesanan<br>
 		Nama Pelanggan: $nama_pelanggan<br>
 		Tanggal Pesanan: $tanggal_pesanan<br>
-		Total Pembayaran: Rp. $total_bayar <br><br>
+		Total Pembayaran: Rp. $totalbayar <br><br>
 		Silakan segera cek sistem untuk detail lebih lanjut dan tindak lanjuti pesanan tersebut.<br><br>
 		Terima kasih.<br><br>
 		Salam,<br>

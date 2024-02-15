@@ -15,7 +15,7 @@
                     <th>Tgl Pemesanan</th>
                     <th>Kuantitas</th>
                     <th>Ukuran</th>
-                    <th>Subtotal</th>
+                    <th>Harga</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -30,7 +30,7 @@
                     <th>Tgl Pemesanan</th>
                     <th>Kuantitas</th>
                     <th>Ukuran</th>
-                    <th>Total</th>
+                    <th>Harga</th>
                     <th>Status</th>
                 </tr>
             </tfoot>
@@ -51,7 +51,7 @@
                             Tinggi:<?= $data->tinggi_dipesan ?>/ <br> Lebar:<?= $data->lebar_dipesan ?>m<sup>2</sup>
                         </td>
                         <td>
-                            Rp.<?= $data->total_bayar ?>
+                            Rp.<?= $data->harga_satuan ?>
                         </td>
                         <td>
                             <button class="btn p-1 status" data-status="<?= $data->status_pemesanan ?>" data-id="<?= $data->id_detail ?>"><?= $data->status_pemesanan ?></button>

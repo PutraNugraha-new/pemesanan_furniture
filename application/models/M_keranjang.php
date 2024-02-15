@@ -23,10 +23,11 @@ class M_keranjang extends CI_Model {
         return $this->db->get()->result();
     }
 
-    public function update_jumlah_produk($id_keranjang, $jumlah) {
+    public function update_jumlah_produk($id_keranjang, $jumlah, $harga) {
         // Sesuaikan dengan struktur tabel dan query Anda
         $data = array(
-            'kuantitas' => $jumlah
+            'kuantitas' => $jumlah,
+            'harga_dipesan' => $harga
         );
 
         $this->db->where('id_keranjang', $id_keranjang);

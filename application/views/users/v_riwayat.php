@@ -13,9 +13,6 @@
                         ?>
                             Status : <span class="badge <?= $badge_class ?>"><?= $data->status_pemesanan ?></span>
                         </p>
-                        <p class="ms-4">
-                            Alamat : <br>  <?= $data->alamat ?>
-                        </p>
                     </div>
                     <div class="col-md-7">
                         <h5 class="mt-2"><?= $data->nama_brg ?></h5>
@@ -23,8 +20,8 @@
                         <p class="text-end me-4 text-primary">
                             Rp. <?= $data->harga_satuan ?>
                         </p>
-                        <p class="text-end me-4 text-primary">
-                            Total Pesanan : Rp. <?= $data->total_bayar ?>
+                        <p class="ms-4">
+                            Alamat : <br>  <?= $data->alamat ?>
                         </p>
                     </div>
                 </div>

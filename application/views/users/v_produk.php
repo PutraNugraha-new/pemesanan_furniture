@@ -86,7 +86,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Tambahkan Ke Keranjang</button>
       </div>
       <?php echo form_close(); ?>
     </div>
@@ -138,6 +138,7 @@
                     $('#harga_permeter').html('<span data-harga_permeter class="font-weight-bold">Harga Permeter : </span> Rp.' + harga_permeter_terformat);
                     $('#harga').html('<span class="font-weight-bold"> Harga Total :</span> Rp.' + data.harga);
                     $('#jumlah').val('1');
+                    $('#harga_permeterr').val(data.harga_permeter);
                     $('#tinggi').val(data.tinggi);
                     $('#id_produk').val(id);
                     $('#harga_tot').val(data.harga);

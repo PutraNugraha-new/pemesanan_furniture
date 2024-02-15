@@ -15,7 +15,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($pemesanan as $data): ?>
+                            <?php $index=1; foreach($pemesanan as $data): ?>
                             <tr>
                                 <th>
                                     <img src="<?= base_url() ?>foto_produk/<?= $data->foto_brg ?>" style="width:100px;height:100px;" class="img-fluid rounded-3" alt="Bangku">
@@ -33,7 +33,7 @@
                                     <input type="hidden" value="<?= $data->lebar_dipesan ?>" name="lebar" id="lebar">
                                 </td>
                                 <td>
-                                    <p id="total" data-total="<?= $data->harga_dipesan ?>">Rp.<?= $data->harga_dipesan ?></p>
+                                    <p id="keranjang<?= $index ?>" data-total="<?= $data->harga_dipesan ?>">Rp.<?= $data->harga_dipesan ?></p>
                                 </td>
                                 <td>
                                     <button class="btn btn-primary hapusProduk" data-id="<?= $data->id_keranjang ?>">
@@ -41,7 +41,7 @@
                                     </button>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
+                            <?php $index++; endforeach; ?>
                         </tbody>
                     </table>
                     <p>Subtotal : <span id="subtotal"></span></p>
@@ -74,8 +74,12 @@
 <script>
     $(document).ready(function () {
         function hitungTotalAwal() {
-            var subtotal = parseInt($('#total').data('total').replace(/\./g, ''), 10);
+            var subtotal = 0;
+            $('[id^="keranjang"]').each(function() {
+                subtotal += parseInt($(this).data('total').replace(/\./g, ''), 10);
+            });
             $('#subtotal').text('Rp.' + subtotal.toLocaleString('id-ID'));
+
             var ongkir = parseInt($('#ongkir').data('ongkir'), 10);
             var totalAkhir = subtotal + ongkir;
             $('#totalAkhir').text('Rp.' + totalAkhir.toLocaleString('id-ID'));
@@ -125,7 +129,10 @@
                 var tinggi = tinggi.val();
                 var lebar = lebar.val();
                 var harga_satuan = harga_satuan_cek.data('harga');
-                var subtotal =parseInt($('#total').data('total').replace(/\./g, ''), 10);
+                var subtotal = 0;
+                $('[id^="keranjang"]').each(function() {
+                    subtotal += parseInt($(this).data('total').replace(/\./g, ''), 10);
+                });
                 var totalbayar = $('#totalAkhir').text().replace('Rp.', '').trim();
                 
 
