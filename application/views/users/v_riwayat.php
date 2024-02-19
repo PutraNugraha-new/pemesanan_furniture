@@ -30,12 +30,12 @@
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="# <?= $data->id_detail ?>" aria-expanded="true" aria-controls=" <?= $data->id_detail ?>">
                                 Detail
                                 </button>
                             </h2>
                         </div>
-                        <div id="collapseOne" class="collapse position-relative" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div id=" <?= $data->id_detail ?>" class="collapse position-relative" aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6">
@@ -55,9 +55,6 @@
                                     </div>
                                     <div class="col-6">
                                         <p>Jenis Pintu : <?= $data->jenis_pintu ?></p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p>Warna : <?= $data->warna ?></p>
                                     </div>
                                     <div class="col-6">
                                         <p>Jumlah Gantungan : <?= $data->jml_gantungan ?></p>

@@ -1,12 +1,13 @@
 <div class="card mt-3">
     <div class="card-header">
         <h4>Data Pesanan</h4>
+        <a href="<?= base_url() ?>pemesanan/cetakLaporan" class="btn btn-success my-2">Cetak</a>
     </div>
     <div class="card-body">
         <table id="datatablesSimple">
             <thead>
                 <tr>
-                <th>No</th>
+                    <th>No</th>
                     <th>Foto</th>
                     <th>Nama Produk</th>
                     <th>Pelanggan / username</th>

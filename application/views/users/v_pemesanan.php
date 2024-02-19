@@ -31,13 +31,13 @@
                                     <input type="hidden" value="<?= $data->id_produk ?>" data-id="<?= $data->id_keranjang ?>" name="idProduk" value="<?= $data->id_produk ?>" style="width:80px;" id="idProduk">
                                     <input type="hidden" value="<?= $data->tinggi_dipesan ?>" name="tinggi" id="tinggi">
                                     <input type="hidden" value="<?= $data->lebar_dipesan ?>" name="lebar" id="lebar">
-                                    <input type="text" value="<?= $data->rak ?>" name="rak" id="rak">
-                                    <input type="text" value="<?= $data->laci ?>" name="laci" id="laci">
-                                    <input type="text" value="<?= $data->jml_pintu ?>" name="jml_pintu" id="jml_pintu">
-                                    <input type="text" value="<?= $data->jenis_pintu ?>" name="jenis_pintu" id="jenis_pintu">
-                                    <input type="text" value="<?= $data->warna ?>" name="warna" id="warna">
-                                    <input type="text" value="<?= $data->jml_gantungan ?>" name="jml_gantungan" id="jml_gantungan">
-                                    <input type="text" value="<?= $data->deskripsi_dipesan ?>" name="deskripsi_dipesan" id="deskripsi_dipesan">
+                                    <input type="hidden" value="<?= $data->rak ?>" name="rak" id="rak">
+                                    <input type="hidden" value="<?= $data->laci ?>" name="laci" id="laci">
+                                    <input type="hidden" value="<?= $data->jml_pintu ?>" name="jml_pintu" id="jml_pintu">
+                                    <input type="hidden" value="<?= $data->jenis_pintu ?>" name="jenis_pintu" id="jenis_pintu">
+                                    <input type="hidden" value="<?= $data->warna ?>" name="warna" id="warna">
+                                    <input type="hidden" value="<?= $data->jml_gantungan ?>" name="jml_gantungan" id="jml_gantungan">
+                                    <input type="hidden" value="<?= $data->deskripsi_dipesan ?>" name="deskripsi_dipesan" id="deskripsi_dipesan">
                                 </td>
                                 <td>
                                     <p id="keranjang<?= $index ?>" data-total="<?= $data->harga_dipesan ?>">Rp.<?= $data->harga_dipesan ?></p>

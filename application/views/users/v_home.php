@@ -30,7 +30,17 @@
                     </div>
                     <div class="col-md-10 ">
                         <h3>About Blesing Home Art</h3>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit ab ex dolores qui fugiat velit enim, amet, eos sunt accusamus maiores unde perspiciatis itaque iste suscipit inventore sit exercitationem reprehenderit beatae adipisci reiciendis nobis nesciunt quod illo! Assumenda, nihil qui, itaque quis quam tempore maxime numquam vel consequuntur explicabo optio.</p>
+                        <p class="text-justify">Selamat datang di <span class="text-primary font-weight-bold">Blessing Home Art Meubel</span> , tempat di mana Anda menemukan keindahan dan kualitas dalam perabot rumah Anda. Kami menyediakan koleksi unik dari furnitur rumah, dekorasi, dan seni yang akan memberikan sentuhan istimewa pada ruang Anda. <br>
+
+                        Dari gaya klasik hingga <span class="text-primary font-weight-bold">kontemporer</span>, kami memiliki berbagai pilihan untuk memenuhi selera dan kebutuhan Anda. Setiap produk kami dipilih dengan teliti untuk memastikan kualitas, keindahan, dan keandalannya. <br>
+
+                        Apakah Anda mencari <span class="text-warning font-weight-bold">sofa yang nyaman, meja makan yang elegan, atau dekorasi dinding yang menarik perhatian</span> , Blessing Home Art Meubel adalah destinasi Anda. <br>
+
+                        Hubungi Kami Melalui WhatsApp: <span class="text-success font-weight-bold">0852-4936-4701</span>  <br>
+
+                        Jangan ragu untuk menghubungi kami melalui WhatsApp untuk pertanyaan, konsultasi desain, atau untuk memesan produk kami. Kami siap membantu Anda menciptakan rumah impian Anda. <br>
+
+                        Untuk lokasinya bisa datang langsung di <span class="text-primary font-weight-bold">Jln. Tampung Penyang VIII Blok.A PALANGKA, KEC. JEKAN RAYA, KOTA PALANGKARAYA, KALIMANTAN TENGAH.</span> </p>
                     </div>
                 </div>
             </div>

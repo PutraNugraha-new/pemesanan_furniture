@@ -1,6 +1,9 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+use Dompdf\Dompdf;
+use Dompdf\Options;
+require_once FCPATH . 'vendor/autoload.php';
 
 class Pemesanan extends CI_Controller {
     public $status;
@@ -19,6 +22,10 @@ class Pemesanan extends CI_Controller {
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
         $this->load->library('userlevel');
+
+        $options = new Options();
+        $options->set('defaultFont', 'Times New Roman');
+        $dompdf = new Dompdf($options);
     }
 
     public function index()
@@ -64,6 +71,51 @@ class Pemesanan extends CI_Controller {
         } else {
             // Tanggapan jika bukan permintaan Ajax
             show_404();
+        }
+    }
+
+
+    public function cetakLaporan(){
+        $data = $this->session->userdata;
+        if(empty($data)){
+            redirect(site_url().'main/login/');
+        }
+    
+        //check user level
+        if(empty($data['role'])){
+            redirect(site_url().'main/login/');
+        }
+        $dataLevel = $this->userlevel->checkLevel($data['role']);
+        // var_dump($dataLevel);
+        // die();
+        //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'main/login/');
+        }else{
+            if($dataLevel == "is_admin"){
+                // Kondisi default jika tidak ada form yang terisi
+                $data = array(
+                    'pemesanan' => $this->M_riwayat->get_pesanan_produk_userAll(),
+                );
+                // Load library Dompdf
+                $options = new Options();
+                $options->set('isHtml5ParserEnabled', true);
+                $options->set('isPhpEnabled', true);
+                $options->set('isRemoteEnabled', true);
+        
+                $dompdf = new Dompdf($options);
+        
+                $html = $this->load->view('admin/pemesanan/cetakLaporan', $data, true);
+                $dompdf->loadHtml($html);
+        
+                $dompdf->setPaper('A4', 'landscape');
+        
+                // Render PDF (stream to browser atau save ke file)
+                $dompdf->render();
+                $dompdf->stream('laporan.pdf', array('Attachment' => 0));
+            }else{
+                redirect('dashboard','refresh');
+            }
         }
     }
 

@@ -62,33 +62,117 @@
         <?php echo form_open_multipart(site_url().'welcome/add_to_cart'); ?>
         <div class="row mx-3">
             <hr>
-            <div class="col-6">
+            <label for="alamat">Alamat Pengantaran <small class="text-warning">(Pemesanan Khusus Area Palangka Raya)</small></label>
+            <select id="alamat" class="form-control col-12 mb-3">
+                <option value="Palangkaraya">Palangka Raya</option>
+                <option value="Luar">Luar Palangkaraya</option>
+            </select>
+            <div class="col-4">
                 <label for="tinggi">Tinggi m<sup>2</sup></label>
                 <input type="hidden" id="harga_tot" name="harga">
                 <input type="hidden" id="id_produk" name="id_produk">
                 <input type="text" class="form-control mx-1" id="tinggi" name="tinggi" placeholder="2.2 , 2.00,...">
             </div>
-            <div class="col-6">
+            <div class="col-4" >
                 <label for="lebar">Lebar m<sup>2</sup></label>
                 <input type="text" class="form-control" id="lebar" name="lebar" placeholder="2.2 , 2.00,...">
             </div>
-            <div class="col-6 my-2">
+            <div class="col-4" >
                 <label for="jumlah">Jumlah</label>
                 <input type="number" name="jumlah" class="form-control ms-2" id="jumlah">
             </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Tambahkan Kekeranjang</button>
-      </div>
-      <?php echo form_close(); ?>
+        <div class="row mx-3" >
+            <hr>
+            <div class="col-12 my-1">
+                <span class="text-primary">Kostum (Gratis)</span>
+            </div>
+            <div class="col-4">
+                <label for="rak">Jumlah Rak</label>
+                <input type="number" class="form-control" id="rak" name="rak">
+            </div>
+            <div class="col-4">
+                <label for="laci">Jumlah Laci</label>
+                <input type="number" class="form-control" id="laci" name="laci">
+            </div>
+            <div class="col-4">
+                <label for="jml_pintu">Jumlah Pintu</label>
+                <input type="number" class="form-control" id="jml_pintu" name="jml_pintu">
+            </div>
+        </div>
+        <div class="row mx-3 mt-4" >
+            <div class="col-4">
+                <label for="jenis" class="mb-4">Jenis Pintu</label>
+                <select name="jenis_pintu" id="jenis_pintu" class="form-control mt-1">
+                    <option value="Pintu Biasa">Pintu Biasa</option>
+                    <option value="Pintu Geser">Pintu Geser</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="warna" class="mb-4">Warna</label>
+                <select name="warna" id="warna" class="form-control mt-1">
+                    <option value="Merah">Merah</option>
+                    <option value="Biru">Biru</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="jml_gantungan">Jumlah Gantungan</label>
+                <input type="number" class="form-control" id="jml_gantungan" name="jml_gantungan">
+            </div>
+            <div class="col-12 mt-3">
+                <label for="deskripsi_dipesan">Deskripsi (Detail Kostum / Detail Alamat)</label>
+                <textarea name="deskripsi_dipesan" id="deskripsi_dipesan" class="form-control" cols="20" rows="5"></textarea>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="modal-footer" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btn-tambah">Tambahkan Ke Keranjang</button>
+    </div>
+    <?php echo form_close(); ?>
+    </div>
+    </div>
 </div>
 
 <script>
     $(document).ready(function () {
+
+        $('#alamat').on('change', function(){
+            var alamat = $(this).val();
+            if(alamat == 'Luar') {
+                $('.btn-tambah').attr('disabled', true);
+                $('#jumlah').attr('disabled', true);
+                $('#harga_permeterr').attr('disabled', true);
+                $('#tinggi').attr('disabled', true);
+                $('#id_produk').attr('disabled', true);
+                $('#harga_tot').attr('disabled', true);
+                $('#lebar').attr('disabled', true);
+                $('#rak').attr('disabled', true);
+                $('#laci').attr('disabled', true);
+                $('#jml_pintu').attr('disabled', true);
+                $('#jenis_pintu').attr('disabled', true);
+                $('#warna').attr('disabled', true);
+                $('#jml_gantungan').attr('disabled', true);
+                $('#deskripsi_dipesan').attr('disabled', true);
+            }else{
+                $('.btn-tambah').attr('disabled', false);
+                $('#jumlah').attr('disabled', false);
+                $('#harga_permeterr').attr('disabled', false);
+                $('#tinggi').attr('disabled', false);
+                $('#id_produk').attr('disabled', false);
+                $('#harga_tot').attr('disabled', false);
+                $('#lebar').attr('disabled', false);
+                $('#rak').attr('disabled', false);
+                $('#laci').attr('disabled', false);
+                $('#jml_pintu').attr('disabled', false);
+                $('#jenis_pintu').attr('disabled', false);
+                $('#warna').attr('disabled', false);
+                $('#jml_gantungan').attr('disabled', false);
+                $('#deskripsi_dipesan').attr('disabled', false);
+            }
+
+        });
+
         $('#tinggi, #lebar, #jumlah').on('input', function() {
             // Ambil nilai dari input tinggi, lebar, dan jumlah
             var tinggi = parseFloat($('#tinggi').val());
@@ -131,10 +215,17 @@
                     $('#harga_permeter').html('<span data-harga_permeter class="font-weight-bold">Harga Permeter : </span> Rp.' + harga_permeter_terformat);
                     $('#harga').html('<span class="font-weight-bold"> Harga Total :</span> Rp.' + data.harga);
                     $('#jumlah').val('1');
+                    $('#harga_permeterr').val(data.harga_permeter);
                     $('#tinggi').val(data.tinggi);
                     $('#id_produk').val(id);
                     $('#harga_tot').val(data.harga);
                     $('#lebar').val(data.lebar);
+                    $('#rak').val(data.rak);
+                    $('#laci').val(data.laci);
+                    $('#jml_pintu').val(data.jml_pintu);
+                    $('#jenis_pintu').val(data.jenis_pintu);
+                    $('#warna').val(data.warna);
+                    $('#jml_gantungan').val(data.jml_gantungan);
                     $('#ukuran').html('<span class="font-weight-bold">Tinggi : </span>' + data.tinggi + 'm<sup>2</sup> <br> ' + '<span class="font-weight-bold">Lebar : </span>'+ data.lebar + 'm<sup>2</sup>');
                 }
             });
