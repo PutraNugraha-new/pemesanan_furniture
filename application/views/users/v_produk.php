@@ -68,17 +68,17 @@
         <?php echo form_open_multipart(site_url().'welcome/add_to_cart'); ?>
         <div class="row mx-3">
             <hr>
-            <div class="col-6">
+            <div class="col-4">
                 <label for="tinggi">Tinggi m<sup>2</sup></label>
                 <input type="hidden" id="harga_tot" name="harga">
                 <input type="hidden" id="id_produk" name="id_produk">
                 <input type="text" class="form-control mx-1" id="tinggi" name="tinggi" placeholder="2.2 , 2.00,...">
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <label for="lebar">Lebar m<sup>2</sup></label>
                 <input type="text" class="form-control" id="lebar" name="lebar" placeholder="2.2 , 2.00,...">
             </div>
-            <div class="col-6 my-2">
+            <div class="col-4">
                 <label for="jumlah">Jumlah</label>
                 <input type="number" name="jumlah" class="form-control ms-2" id="jumlah">
             </div>
@@ -86,54 +86,53 @@
         <div class="row mx-3">
             <hr>
             <div class="col-12 my-1">
-                <span class="text-primary">Custom (Gratis)</span>
+                <span class="text-primary">Kostum (Gratis)</span>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <label for="rak">Jumlah Rak</label>
                 <input type="number" class="form-control" id="rak" name="rak">
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <label for="laci">Jumlah Laci</label>
                 <input type="number" class="form-control" id="laci" name="laci">
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <label for="jml_pintu">Jumlah Pintu</label>
                 <input type="number" class="form-control" id="jml_pintu" name="jml_pintu">
             </div>
-            <div class="col-3">
+        </div>
+        <div class="row mx-3 mt-4">
+            <div class="col-4">
                 <label for="jenis" class="mb-4">Jenis Pintu</label>
                 <select name="jenis_pintu" id="jenis_pintu" class="form-control mt-1">
                     <option value="Pintu Biasa">Pintu Biasa</option>
                     <option value="Pintu Geser">Pintu Geser</option>
                 </select>
             </div>
-            <div class="col-3 my-2">
+            <div class="col-4">
                 <label for="warna" class="mb-4">Warna</label>
                 <select name="warna" id="warna" class="form-control mt-1">
                     <option value="Merah">Merah</option>
                     <option value="Biru">Biru</option>
                 </select>
             </div>
-            <div class="col-3 my-2">
+            <div class="col-4">
                 <label for="jml_gantungan">Jumlah Gantungan</label>
                 <input type="number" class="form-control" id="jml_gantungan" name="jml_gantungan">
             </div>
-            <div class="col-3 my-2">
-                <label for="opsi_gantungan">Opsi Gantungan</label>
-                <select name="opsi_gantungan" id="opsi_gantungan" class="form-control mt-1">
-                    <option value="Ya">Ya</option>
-                    <option value="Tidak">Tidak</option>
-                </select>
+            <div class="col-12 mt-3">
+                <label for="deskripsi_dipesan">Deskripsi</label>
+                <textarea name="deskripsi_dipesan" id="deskripsi_dipesan" class="form-control" cols="20" rows="5"></textarea>
             </div>
         </div>
-      </div>
-      <div class="modal-footer">
+    </div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Tambahkan Ke Keranjang</button>
-      </div>
-      <?php echo form_close(); ?>
     </div>
-  </div>
+    <?php echo form_close(); ?>
+    </div>
+    </div>
 </div>
 
 <script>
@@ -186,6 +185,12 @@
                     $('#id_produk').val(id);
                     $('#harga_tot').val(data.harga);
                     $('#lebar').val(data.lebar);
+                    $('#rak').val(data.rak);
+                    $('#laci').val(data.laci);
+                    $('#jml_pintu').val(data.jml_pintu);
+                    $('#jenis_pintu').val(data.jenis_pintu);
+                    $('#warna').val(data.warna);
+                    $('#jml_gantungan').val(data.jml_gantungan);
                     $('#ukuran').html('<span class="font-weight-bold">Tinggi : </span>' + data.tinggi + 'm<sup>2</sup> <br> ' + '<span class="font-weight-bold">Lebar : </span>'+ data.lebar + 'm<sup>2</sup>');
                 }
             });

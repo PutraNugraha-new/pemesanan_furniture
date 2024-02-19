@@ -161,6 +161,13 @@ class Welcome extends CI_Controller {
 				'lebar_dipesan' => $this->input->post('lebar'),
 				'harga_dipesan' => $this->input->post('harga'),
 				'kuantitas' => $quantity,
+				'rak' => $this->input->post('rak'),
+				'laci' => $this->input->post('laci'),
+				'jml_pintu' => $this->input->post('jml_pintu'),
+				'jenis_pintu' => $this->input->post('jenis_pintu'),
+				'warna' => $this->input->post('warna'),
+				'jml_gantungan' => $this->input->post('jml_gantungan'),
+				'deskripsi_dipesan' => $this->input->post('deskripsi_dipesan'),
 			);
 
 			$this->M_keranjang->add($data);

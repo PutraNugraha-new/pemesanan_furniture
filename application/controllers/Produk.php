@@ -119,6 +119,12 @@ class Produk extends CI_Controller {
                 'harga_permeter' => $harga_permeter,
                 'tinggi' => $tinggi,
                 'lebar' => $lebar,
+                'rak' => $this->input->post('rak'),
+                'laci' => $this->input->post('laci'),
+                'jml_pintu' => $this->input->post('jml_pintu'),
+                'jenis_pintu' => $this->input->post('jenis_pintu'),
+                'warna' => $this->input->post('warna'),
+                'jml_gantungan' => $this->input->post('jml_gantungan'),
                 'stok' => $this->input->post('stok'),
                 'foto_brg' => (!empty($nama_file_disimpan)) ? $nama_file_disimpan : null,
             ];

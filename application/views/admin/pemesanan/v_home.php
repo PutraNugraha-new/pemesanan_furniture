@@ -14,7 +14,7 @@
                     <th>Alamat</th>
                     <th>Tgl Pemesanan</th>
                     <th>Kuantitas</th>
-                    <th>Ukuran</th>
+                    <th>Spesifikasi</th>
                     <th>Harga</th>
                     <th>Status</th>
                 </tr>
@@ -29,7 +29,7 @@
                     <th>Alamat</th>
                     <th>Tgl Pemesanan</th>
                     <th>Kuantitas</th>
-                    <th>Ukuran</th>
+                    <th>Spesifikasi</th>
                     <th>Harga</th>
                     <th>Status</th>
                 </tr>
@@ -48,13 +48,24 @@
                         <td><?= $data->tgl_pemesanan ?></td>
                         <td><?= $data->kuantitas ?></td>
                         <td>
-                            Tinggi:<?= $data->tinggi_dipesan ?>/ <br> Lebar:<?= $data->lebar_dipesan ?>m<sup>2</sup>
+                            Tinggi:<?= $data->tinggi_dipesan ?>/ <br> Lebar:<?= $data->lebar_dipesan ?>m<sup>2</sup><br>
+                            Rak : <?= $data->rak ?><br>Laci : <?= $data->laci ?><br>Jumlah Pintu : <?= $data->jml_pintu ?><br>
+                            Jenis Pintu: <?= $data->jenis_pintu ?><br>Warna : <?= $data->warna ?><br>Jumlah Gantungan : <?= $data->jml_gantungan ?>
                         </td>
                         <td>
                             Rp.<?= $data->harga_satuan ?>
                         </td>
                         <td>
-                            <button class="btn p-1 status" data-status="<?= $data->status_pemesanan ?>" data-id="<?= $data->id_detail ?>"><?= $data->status_pemesanan ?></button>
+                            <select class="form-select status" data-id="<?= $data->id_detail ?>">
+                                <option value="proses" <?= ($data->status_pemesanan == 'proses') ? 'selected' : '' ?>>Proses</option>
+                                <option value="Survei Lokasi" <?= ($data->status_pemesanan == 'Survei Lokasi') ? 'selected' : '' ?>>Survei Lokasi</option>
+                                <option value="Pembayaran Uang Muka" <?= ($data->status_pemesanan == 'Pembayaran Uang Muka') ? 'selected' : '' ?>>Pembayaran Uang Muka</option>
+                                <option value="Proses Pengerjaan" <?= ($data->status_pemesanan == 'Proses Pengerjaan') ? 'selected' : '' ?>>Proses Pengerjaan</option>
+                                <option value="Selesai Pengerjaan" <?= ($data->status_pemesanan == 'Selesai Pengerjaan') ? 'selected' : '' ?>>Selesai Pengerjaan</option>
+                                <option value="Pengiriman" <?= ($data->status_pemesanan == 'Pengiriman') ? 'selected' : '' ?>>Pengiriman</option>
+                                <option value="Pelunasan Barang" <?= ($data->status_pemesanan == 'Pelunasan Barang') ? 'selected' : '' ?>>Pelunasan Barang</option>
+                                <option value="Selesai" <?= ($data->status_pemesanan == 'Selesai') ? 'selected' : '' ?>>Selesai</option>
+                            </select>
                         </td>
                     </tr>
                 <?php $no++; endforeach; ?>
@@ -65,19 +76,9 @@
 
 <script>
     $(document).ready(function() {
-        $('.status').each(function() {
-            var currentStatus = $(this).data('status'); // Mendapatkan status saat ini dari data atribut
-            if (currentStatus === 'proses') {
-                $(this).removeClass('btn-primary').addClass('btn-danger');
-            } else if (currentStatus === 'selesai') {
-                $(this).removeClass('btn-danger').addClass('btn-primary');
-            }
-        });
-        $('.status').on('click', function() {
+        $('.status').on('change', function() {
             var id = $(this).data('id');
-            var currentStatus = $(this).data('status'); // Mendapatkan status saat ini dari data atribut
-            var newStatus = (currentStatus === 'proses') ? 'selesai' : 'proses'; // Mengubah status sesuai dengan kondisi saat ini
-            console.log(newStatus);
+            var newStatus = $(this).val();
 
             $.ajax({
                 url: '<?= base_url("pemesanan/updateProses") ?>',
@@ -89,11 +90,6 @@
                 dataType:'json',
                 success:function(response){
                     console.log(response);
-                    if (newStatus === 'proses') {
-                        $(this).removeClass('btn-primary').addClass('btn-danger').text('proses');
-                    } else if (newStatus === 'selesai') {
-                        $(this).removeClass('btn-danger').addClass('btn-primary').text('selesai');
-                    }
                     location.reload();
                 }, 
                 error: function (xhr, status, error) {

@@ -31,6 +31,13 @@
                                     <input type="hidden" value="<?= $data->id_produk ?>" data-id="<?= $data->id_keranjang ?>" name="idProduk" value="<?= $data->id_produk ?>" style="width:80px;" id="idProduk">
                                     <input type="hidden" value="<?= $data->tinggi_dipesan ?>" name="tinggi" id="tinggi">
                                     <input type="hidden" value="<?= $data->lebar_dipesan ?>" name="lebar" id="lebar">
+                                    <input type="text" value="<?= $data->rak ?>" name="rak" id="rak">
+                                    <input type="text" value="<?= $data->laci ?>" name="laci" id="laci">
+                                    <input type="text" value="<?= $data->jml_pintu ?>" name="jml_pintu" id="jml_pintu">
+                                    <input type="text" value="<?= $data->jenis_pintu ?>" name="jenis_pintu" id="jenis_pintu">
+                                    <input type="text" value="<?= $data->warna ?>" name="warna" id="warna">
+                                    <input type="text" value="<?= $data->jml_gantungan ?>" name="jml_gantungan" id="jml_gantungan">
+                                    <input type="text" value="<?= $data->deskripsi_dipesan ?>" name="deskripsi_dipesan" id="deskripsi_dipesan">
                                 </td>
                                 <td>
                                     <p id="keranjang<?= $index ?>" data-total="<?= $data->harga_dipesan ?>">Rp.<?= $data->harga_dipesan ?></p>
@@ -121,6 +128,13 @@
             var harga_satuan_cek = $(this).find('#harga');
             var tinggi = $(this).find('#tinggi');
             var lebar = $(this).find('#lebar');
+            var rak = $(this).find('#rak');
+            var laci = $(this).find('#laci');
+            var jml_pintu = $(this).find('#jml_pintu');
+            var jenis_pintu = $(this).find('#jenis_pintu');
+            var warna = $(this).find('#warna');
+            var jml_gantungan = $(this).find('#jml_gantungan');
+            var deskripsi_dipesan = $(this).find('#deskripsi_dipesan');
             
 
             if(id_produk_cek.length > 0 && kuantitas_cek.length > 0 && harga_satuan_cek.length > 0){
@@ -128,6 +142,13 @@
                 var kuantitas = kuantitas_cek.val();
                 var tinggi = tinggi.val();
                 var lebar = lebar.val();
+                var rak = rak.val();
+                var laci = laci.val();
+                var jml_pintu = jml_pintu.val();
+                var jenis_pintu = jenis_pintu.val();
+                var warna = warna.val();
+                var jml_gantungan = jml_gantungan.val();
+                var deskripsi_dipesan = deskripsi_dipesan.val();
                 var harga_satuan = harga_satuan_cek.data('harga');
                 var subtotal = 0;
                 $('[id^="keranjang"]').each(function() {
@@ -141,6 +162,13 @@
                     id_produk: id_produk,
                     tinggi: tinggi,
                     lebar: lebar,
+                    rak: rak,
+                    laci: laci,
+                    jml_pintu: jml_pintu,
+                    jenis_pintu: jenis_pintu,
+                    warna: warna,
+                    jml_gantungan: jml_gantungan,
+                    deskripsi_dipesan: deskripsi_dipesan,
                     kuantitas: kuantitas,
                     harga_satuan: harga_satuan,
                     subtotal: subtotal,

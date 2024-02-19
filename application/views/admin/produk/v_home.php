@@ -15,12 +15,12 @@
     <div class="card-body">
         <?php echo form_open_multipart(site_url().'produk/add'); ?>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="nama_brg">Nama Produk</label>
                     <input type="text" class="form-control" placeholder="Nama Produk" name="nama_brg" required>
                     <?php echo form_error('nama_brg', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="jenis_brg">Jenis Produk</label>
                     <select name="jenis_brg" id="jenis_brg" class="form-control" required>
                         <option value="">Jenis Produk</option>
@@ -36,23 +36,61 @@
                     <?php echo form_error('harga', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
                 <div class="col-md-2">
-                    <label for="jumlah">Jumlah</label>
+                    <label for="jumlah">Stok</label>
                     <input type="number" class="form-control" name="stok" placeholder="012345.." required>
                     <?php echo form_error('jumlah', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
+                <div class="col-md-2">
+                    <label for="rak">Jumlah Rak</label>
+                    <input type="number" class="form-control" name="rak" placeholder="012345.." required>
+                    <?php echo form_error('rak', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
             </div>
             <div class="row my-2">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="tinggi">Tinggi <span>m<sup>2</sup></span></label>
                     <input type="text" class="form-control" name="tinggi" placeholder="tinggi" required>
                     <?php echo form_error('tinggi', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="lebar">Lebar <span>m<sup>2</sup></span></label>
                     <input type="text" class="form-control" name="lebar" placeholder="lebar" required>
                     <?php echo form_error('lebar', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <label for="laci">Jumlah Laci</label>
+                    <input type="number" class="form-control" name="laci" placeholder="laci" required>
+                    <?php echo form_error('laci', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-2">
+                    <label for="jml_pintu">Jumlah Pintu</label>
+                    <input type="number" class="form-control" name="jml_pintu" placeholder="jml_pintu" required>
+                    <?php echo form_error('jml_pintu', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-2">
+                    <label for="jenis_pintu">Jenis Pintu</label>
+                    <select name="jenis_pintu" id="jenis_pintu" class="form-control" required>
+                        <option value="">Jenis Pintu</option>
+                        <option value="Pintu Biasa">Pintu Biasa</option>
+                        <option value="Pintu Geser">Pintu Geser</option>
+                    </select>
+                    <?php echo form_error('jenis_pintu', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-2">
+                    <label for="warna">Warna</label>
+                    <select name="warna" id="warna" class="form-control" required>
+                        <option value="">Pilih Warna</option>
+                        <option value="Merah">Merah</option>
+                        <option value="Biru">Biru</option>
+                    </select>
+                    <?php echo form_error('warna', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-2">
+                    <label for="jml_gantungan">Jumlah Gantungan</label>
+                    <input type="number" class="form-control" name="jml_gantungan" placeholder="jml_gantungan" required>
+                    <?php echo form_error('jml_gantungan', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                </div>
+                <div class="col-md-2">
                     <label for="foto_brg">Foto Produk</label>
                     <input type="file" name="foto_brg" id="foto_brg" class="form-control">
                     <?php echo form_error('deskripsi', '<div class="alert alert-danger" role="alert">', '</div>') ?>
@@ -171,7 +209,7 @@
                                 <label for="harga">Harga</label>
                             </div>
                             <div class="col-md-8 my-2">
-                                <input type="number" class="form-control" name="harga" id="harga" placeholder="Harga Satuan/set" >
+                                <input type="text" class="form-control" name="harga" id="harga" placeholder="Harga Satuan/set" >
                                 <?php echo form_error('harga', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
                             </div>
                             <div class="col-md-4">
