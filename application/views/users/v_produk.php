@@ -83,6 +83,49 @@
                 <input type="number" name="jumlah" class="form-control ms-2" id="jumlah">
             </div>
         </div>
+        <div class="row mx-3">
+            <hr>
+            <div class="col-12 my-1">
+                <span class="text-primary">Custom (Gratis)</span>
+            </div>
+            <div class="col-3">
+                <label for="rak">Jumlah Rak</label>
+                <input type="number" class="form-control" id="rak" name="rak">
+            </div>
+            <div class="col-3">
+                <label for="laci">Jumlah Laci</label>
+                <input type="number" class="form-control" id="laci" name="laci">
+            </div>
+            <div class="col-3">
+                <label for="jml_pintu">Jumlah Pintu</label>
+                <input type="number" class="form-control" id="jml_pintu" name="jml_pintu">
+            </div>
+            <div class="col-3">
+                <label for="jenis" class="mb-4">Jenis Pintu</label>
+                <select name="jenis_pintu" id="jenis_pintu" class="form-control mt-1">
+                    <option value="Pintu Biasa">Pintu Biasa</option>
+                    <option value="Pintu Geser">Pintu Geser</option>
+                </select>
+            </div>
+            <div class="col-3 my-2">
+                <label for="warna" class="mb-4">Warna</label>
+                <select name="warna" id="warna" class="form-control mt-1">
+                    <option value="Merah">Merah</option>
+                    <option value="Biru">Biru</option>
+                </select>
+            </div>
+            <div class="col-3 my-2">
+                <label for="jml_gantungan">Jumlah Gantungan</label>
+                <input type="number" class="form-control" id="jml_gantungan" name="jml_gantungan">
+            </div>
+            <div class="col-3 my-2">
+                <label for="opsi_gantungan">Opsi Gantungan</label>
+                <select name="opsi_gantungan" id="opsi_gantungan" class="form-control mt-1">
+                    <option value="Ya">Ya</option>
+                    <option value="Tidak">Tidak</option>
+                </select>
+            </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
