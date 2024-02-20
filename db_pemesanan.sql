@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 15, 2024 at 12:59 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.1
+-- Host: localhost:3306
+-- Generation Time: Feb 20, 2024 at 08:48 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `settings` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `site_title` varchar(50) NOT NULL,
   `timezone` varchar(100) NOT NULL,
   `recaptcha` varchar(5) NOT NULL,
@@ -49,26 +49,33 @@ INSERT INTO `settings` (`id`, `site_title`, `timezone`, `recaptcha`, `theme`) VA
 --
 
 CREATE TABLE `tb_detailpemesanan` (
-  `id_detail` int(11) NOT NULL,
-  `id_pemesanan` int(11) NOT NULL,
-  `id_produk` int(11) NOT NULL,
+  `id_detail` int NOT NULL,
+  `id_pemesanan` int NOT NULL,
+  `id_produk` int NOT NULL,
   `tinggi_dipesan` decimal(10,2) NOT NULL,
   `lebar_dipesan` decimal(10,2) NOT NULL,
-  `kuantitas` int(11) DEFAULT NULL,
+  `kuantitas` int DEFAULT NULL,
   `harga_satuan` varchar(20) DEFAULT NULL,
+  `rak` int DEFAULT NULL,
+  `laci` int DEFAULT NULL,
+  `jml_pintu` int DEFAULT NULL,
+  `jenis_pintu` enum('Pintu Geser','Pintu Biasa') DEFAULT NULL,
+  `warna` varchar(100) DEFAULT NULL,
+  `jml_gantungan` int DEFAULT NULL,
+  `deskripsi_dipesan` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `subtotal` varchar(20) DEFAULT NULL,
-  `status_pemesanan` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `status_pemesanan` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tb_detailpemesanan`
 --
 
-INSERT INTO `tb_detailpemesanan` (`id_detail`, `id_pemesanan`, `id_produk`, `tinggi_dipesan`, `lebar_dipesan`, `kuantitas`, `harga_satuan`, `subtotal`, `status_pemesanan`) VALUES
-(78, 60, 34, '2.40', '2.00', 1, '10.560.000', '16260000', 'proses'),
-(79, 60, 35, '1.00', '3.00', 1, '5.700.000', '16260000', 'proses'),
-(80, 61, 34, '2.40', '2.00', 4, '10.560.000', '53640000', 'selesai'),
-(81, 61, 35, '1.00', '3.00', 2, '5.700.000', '53640000', 'proses');
+INSERT INTO `tb_detailpemesanan` (`id_detail`, `id_pemesanan`, `id_produk`, `tinggi_dipesan`, `lebar_dipesan`, `kuantitas`, `harga_satuan`, `rak`, `laci`, `jml_pintu`, `jenis_pintu`, `warna`, `jml_gantungan`, `deskripsi_dipesan`, `subtotal`, `status_pemesanan`) VALUES
+(82, 62, 36, 2.40, 2.00, 1, '10.560.000', 2, 3, 2, 'Pintu Biasa', 'Merah', 2, 'deskripsi pesan', '10560000', 'Pengiriman'),
+(83, 63, 36, 2.40, 2.00, 3, '10.560.000', 2, 3, 2, 'Pintu Biasa', 'Merah', 2, '', '21120000', 'proses'),
+(84, 64, 36, 2.40, 2.00, 1, '10.560.000', 2, 3, 2, 'Pintu Biasa', '1', 2, 'Palangkaraya', '10560000', 'proses'),
+(85, 65, 36, 2.40, 2.00, 1, '10.560.000', 2, 3, 2, 'Pintu Biasa', '1', 2, 'adwdad', '10560000', 'Selesai Pengerjaan');
 
 -- --------------------------------------------------------
 
@@ -77,10 +84,10 @@ INSERT INTO `tb_detailpemesanan` (`id_detail`, `id_pemesanan`, `id_produk`, `tin
 --
 
 CREATE TABLE `tb_foto` (
-  `id_foto` int(11) NOT NULL,
-  `id_produk` int(11) NOT NULL,
+  `id_foto` int NOT NULL,
+  `id_produk` int NOT NULL,
   `nama_foto` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tb_foto`
@@ -115,14 +122,21 @@ INSERT INTO `tb_foto` (`id_foto`, `id_produk`, `nama_foto`) VALUES
 --
 
 CREATE TABLE `tb_keranjang` (
-  `id_keranjang` int(11) NOT NULL,
-  `id` int(11) NOT NULL,
-  `id_produk` int(11) NOT NULL,
+  `id_keranjang` int NOT NULL,
+  `id` int NOT NULL,
+  `id_produk` int NOT NULL,
   `tinggi_dipesan` decimal(10,2) NOT NULL,
   `lebar_dipesan` decimal(10,2) NOT NULL,
+  `rak` int DEFAULT NULL,
+  `laci` int DEFAULT NULL,
+  `jml_pintu` int DEFAULT NULL,
+  `jenis_pintu` enum('Pintu Geser','Pintu Biasa') DEFAULT NULL,
+  `warna` varchar(100) DEFAULT NULL,
+  `jml_gantungan` int DEFAULT NULL,
+  `deskripsi_dipesan` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `harga_dipesan` varchar(20) NOT NULL,
-  `kuantitas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `kuantitas` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -131,19 +145,21 @@ CREATE TABLE `tb_keranjang` (
 --
 
 CREATE TABLE `tb_pemesanan` (
-  `id_pemesanan` int(11) NOT NULL,
-  `id_pelanggan` int(11) NOT NULL,
+  `id_pemesanan` int NOT NULL,
+  `id_pelanggan` int NOT NULL,
   `tgl_pemesanan` datetime DEFAULT NULL,
   `total_bayar` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tb_pemesanan`
 --
 
 INSERT INTO `tb_pemesanan` (`id_pemesanan`, `id_pelanggan`, `tgl_pemesanan`, `total_bayar`) VALUES
-(60, 8, '2024-02-15 11:37:21', '16.560.000'),
-(61, 8, '2024-02-15 12:27:30', '53.940.000');
+(62, 3, '2024-02-19 18:00:28', '10.860.000'),
+(63, 3, '2024-02-19 21:31:01', '21.420.000'),
+(64, 3, '2024-02-20 09:25:35', '10.860.000'),
+(65, 3, '2024-02-20 15:34:51', '10.860.000');
 
 -- --------------------------------------------------------
 
@@ -152,25 +168,51 @@ INSERT INTO `tb_pemesanan` (`id_pemesanan`, `id_pelanggan`, `tgl_pemesanan`, `to
 --
 
 CREATE TABLE `tb_produk` (
-  `id_produk` int(11) NOT NULL,
+  `id_produk` int NOT NULL,
   `nama_brg` varchar(100) NOT NULL,
   `jenis_brg` varchar(100) DEFAULT NULL,
-  `deskripsi` text DEFAULT NULL,
+  `deskripsi` text,
   `harga` varchar(20) DEFAULT NULL,
   `harga_permeter` decimal(10,2) DEFAULT NULL,
   `tinggi` decimal(10,2) DEFAULT NULL,
   `lebar` decimal(10,2) DEFAULT NULL,
-  `stok` int(11) DEFAULT NULL,
+  `rak` int DEFAULT NULL,
+  `laci` int DEFAULT NULL,
+  `jml_pintu` int DEFAULT NULL,
+  `jenis_pintu` enum('Pintu Geser','Pintu Biasa') DEFAULT NULL,
+  `warna` varchar(100) DEFAULT NULL,
+  `jml_gantungan` int DEFAULT NULL,
+  `stok` int DEFAULT NULL,
   `foto_brg` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tb_produk`
 --
 
-INSERT INTO `tb_produk` (`id_produk`, `nama_brg`, `jenis_brg`, `deskripsi`, `harga`, `harga_permeter`, `tinggi`, `lebar`, `stok`, `foto_brg`) VALUES
-(34, 'Lemari Pakaian', 'Lemari', 'awdawd', '10.560.000', '2200000.00', '2.40', '2.00', 1, 'q2lteum0bK3XNJ5H.jpg'),
-(35, 'Kitchen Set', 'kitchen set', 'wwda', '5.700.000', '1900000.00', '1.00', '3.00', 1, 'kgC93TjZf8lvwy7p.jpg');
+INSERT INTO `tb_produk` (`id_produk`, `nama_brg`, `jenis_brg`, `deskripsi`, `harga`, `harga_permeter`, `tinggi`, `lebar`, `rak`, `laci`, `jml_pintu`, `jenis_pintu`, `warna`, `jml_gantungan`, `stok`, `foto_brg`) VALUES
+(36, 'Lemari', 'Kitchen Set', 'warnakjwnda', '10.560.000', 2200000.00, 2.40, 2.00, 2, 3, 2, 'Pintu Biasa', '1', 2, 1, 'ZtKSbWAPpM8aYVGk.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_warna`
+--
+
+CREATE TABLE `tb_warna` (
+  `id_warna` int NOT NULL,
+  `nama_warna` varchar(100) DEFAULT NULL,
+  `foto_warna` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_warna`
+--
+
+INSERT INTO `tb_warna` (`id_warna`, `nama_warna`, `foto_warna`) VALUES
+(1, 'Serat Kayu Motif Gelapp', 'H8QUXhwOBNkDs3YI.jpeg'),
+(2, 'Serat Kayu Motif Cerah', '1xyJiOjUsmPlG9qD.jpeg'),
+(3, 'Serat Kayu Motif Netral', '6DSEHt85WkJavQlX.jpeg');
 
 -- --------------------------------------------------------
 
@@ -179,9 +221,9 @@ INSERT INTO `tb_produk` (`id_produk`, `nama_brg`, `jenis_brg`, `deskripsi`, `har
 --
 
 CREATE TABLE `tokens` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `token` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   `created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -192,11 +234,11 @@ CREATE TABLE `tokens` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `email` varchar(100) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) DEFAULT NULL,
-  `alamat` text DEFAULT NULL,
+  `alamat` text,
   `no_hp` varchar(15) DEFAULT NULL,
   `role` varchar(10) NOT NULL,
   `password` text NOT NULL,
@@ -210,8 +252,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `alamat`, `no_hp`, `role`, `password`, `last_login`, `status`, `banned_users`) VALUES
-(1, 'admin@gmail.com', 'Admin', 'Admin', '-', '0', '1', 'sha256:1000:UJxHaaFpM44Bj1ka7U58GiSHUx3zRWid:Hq86/PHYj0utJLz2ciHzSehsidHAZX+A', '2024-02-15 06:29:01 AM', 'approved', 'unban'),
-(3, 'putra', 'putra', NULL, 'pky', '081351678870', '2', 'sha256:1000:yhkLETgVloUWIpKaHxnCrMHBpVpihy5k:/iuqzVDoZELQ0h1+/DQ8rjUk6ry2mkVn', '2024-02-14 06:13:15 PM', 'approved', 'unban'),
+(1, 'admin@gmail.com', 'Admin', 'Admin', '-', '0', '1', 'sha256:1000:UJxHaaFpM44Bj1ka7U58GiSHUx3zRWid:Hq86/PHYj0utJLz2ciHzSehsidHAZX+A', '2024-02-20 08:37:48 AM', 'approved', 'unban'),
+(3, 'putra', 'putra', NULL, 'pky', '081351678870', '2', 'sha256:1000:yhkLETgVloUWIpKaHxnCrMHBpVpihy5k:/iuqzVDoZELQ0h1+/DQ8rjUk6ry2mkVn', '2024-02-20 08:38:21 AM', 'approved', 'unban'),
 (4, 'odoi', 'odoii', NULL, 'pky', '082128481981', '2', 'sha256:1000:YjqXWUf4f6wzCaMgC59NI33x22DSaR3n:cn/No+IN2kMO7g9iBAORikqI8/m5GsMG', '2024-01-28 05:49:47 PM', 'approved', 'unban'),
 (8, 'odoiboi', 'odoiboi', NULL, 'palangka', '081298371947821', '2', 'sha256:1000:9/NWOJdaRh41+GrrqVlQ8MAX7QtN6yas:GG9oi3J0FxsWBF+27kJHuBYFIkTnwcRW', '2024-02-15 06:34:46 AM', 'approved', 'unban');
 
@@ -256,6 +298,12 @@ ALTER TABLE `tb_produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
+-- Indexes for table `tb_warna`
+--
+ALTER TABLE `tb_warna`
+  ADD PRIMARY KEY (`id_warna`);
+
+--
 -- Indexes for table `tokens`
 --
 ALTER TABLE `tokens`
@@ -275,49 +323,55 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_detailpemesanan`
 --
 ALTER TABLE `tb_detailpemesanan`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `tb_foto`
 --
 ALTER TABLE `tb_foto`
-  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_foto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tb_keranjang`
 --
 ALTER TABLE `tb_keranjang`
-  MODIFY `id_keranjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id_keranjang` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `tb_pemesanan`
 --
 ALTER TABLE `tb_pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_pemesanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `tb_produk`
 --
 ALTER TABLE `tb_produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_produk` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `tb_warna`
+--
+ALTER TABLE `tb_warna`
+  MODIFY `id_warna` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
