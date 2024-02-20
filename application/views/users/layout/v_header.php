@@ -21,6 +21,12 @@
                     </a>
                 </li>
                 <li class="nav-item mx-2">
+                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/warna">
+                        <i class="fa-solid fa-palette"></i>
+                        Warna/Motif
+                    </a>
+                </li>
+                <li class="nav-item mx-2">
                     <a class="nav-link text-light" href="<?= base_url() ?>welcome/pemesanan">
                         <i class="fa-solid fa-list-alt"></i>
                         Pemesanan <span class="badge badge-danger" id="notifJumlah"></span>

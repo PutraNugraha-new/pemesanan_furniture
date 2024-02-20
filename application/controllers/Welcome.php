@@ -13,6 +13,7 @@ class Welcome extends CI_Controller {
         $this->load->model('M_galeri', 'M_galeri', TRUE);
         $this->load->model('M_pemesanan', 'M_pemesanan', TRUE);
         $this->load->model('M_riwayat', 'M_riwayat', TRUE);
+        $this->load->model('M_warna', 'M_warna', TRUE);
 		$this->load->model('User_model', 'user_model', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -34,7 +35,15 @@ class Welcome extends CI_Controller {
 	public function produk(){
 		$data = array(
 			'isi' => 'users/v_produk',
+			'warna' => $this->M_warna->AllData(),
 			'produk' => $this->M_produk->allData(),
+		);
+		$this->load->view('users/layout/v_wrapper', $data, FALSE);
+	}
+	public function warna(){
+		$data = array(
+			'isi' => 'users/v_warna',
+			'warna' => $this->M_warna->AllData(),
 		);
 		$this->load->view('users/layout/v_wrapper', $data, FALSE);
 	}
@@ -220,7 +229,8 @@ class Welcome extends CI_Controller {
 		$data = array(
 			'isi' => 'users/v_detail',
 			'produk' => $this->M_produk->getData($id_produk),
-			'galeri' => $this->M_galeri->getData($id_produk)
+			'galeri' => $this->M_galeri->getData($id_produk),
+			'warna' => $this->M_warna->AllData(),
 		);
 		$this->load->view('users/layout/v_wrapper', $data, FALSE);
 	}

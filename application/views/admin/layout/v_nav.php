@@ -23,6 +23,10 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-photo-film"></i></div>
                                 Galeri
                             </a>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'warna' ? 'active' : '') ?>" href="<?= base_url() ?>warna">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-palette"></i></div>
+                                Warna
+                            </a>
                             <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'laporan' ? 'active' : '') ?>" href="<?= base_url() ?>laporan">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-square-poll-vertical"></i></div>
                                 Laporan

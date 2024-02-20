@@ -66,6 +66,12 @@ class M_pemesanan extends CI_Model {
             ->group_by('DATE_FORMAT(tgl_pemesanan, "%Y-%m"), tgl_pemesanan')
             ->get();
         return $query->result_array();
-    }    
+    } 
+    
+    public function getWarna($id_warna) {
+        $this->db->select('*');
+        $this->db->where('warna', $id_warna);
+        return $this->db->get('tb_detailpemesanan')->row();
+    }
     
 }

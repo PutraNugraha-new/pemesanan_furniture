@@ -80,8 +80,9 @@
                     <label for="warna">Warna</label>
                     <select name="warna" id="warna" class="form-control" required>
                         <option value="">Pilih Warna</option>
-                        <option value="Merah">Merah</option>
-                        <option value="Biru">Biru</option>
+                        <?php foreach ($warna as $data) : ?>
+                            <option value="<?= $data->id_warna ?>"><?= $data->nama_warna ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <?php echo form_error('warna', '<div class="alert alert-danger" role="alert">', '</div>') ?>
                 </div>
@@ -206,11 +207,64 @@
                                 <?php echo form_error('jumlah', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
                             </div>
                             <div class="col-md-4">
+                                <label for="harga_permeter">Harga Permeter</label>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <input type="number" class="form-control" name="harga_permeter" id="harga_permeter" placeholder="Harga Permeter ">
+                                <?php echo form_error('harga_permeter', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tinggi">Tinggi</label>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <input type="text" class="form-control" name="tinggi" id="tinggi" placeholder="Tinggi Produk" >
+                                <?php echo form_error('tinggi', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lebar">Lebar</label>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <input type="text" class="form-control" name="lebar" id="lebar" placeholder="Lebar Produk" >
+                                <?php echo form_error('lebar', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
+                            </div>
+                            <div class="col-md-4">
+                                <label for="rak">Jumlah Rak</label>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <input type="text" class="form-control" name="rak" id="rak" placeholder="rak Produk" >
+                                <?php echo form_error('rak', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
+                            </div>
+                            <div class="col-md-4">
+                                <label for="laci">Jumlah Laci</label>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <input type="text" class="form-control" name="laci" id="laci" placeholder="laci Produk" >
+                                <?php echo form_error('laci', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
+                            </div>
+                            <div class="col-md-4">
+                                <label for="jml_pintu">Jumlah Pintu</label>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <input type="text" class="form-control" name="jml_pintu" id="jml_pintu" placeholder="jml pintu Produk" >
+                                <?php echo form_error('jml_pintu', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
+                            </div>
+                            <div class="col-md-4">
                                 <label for="harga">Harga</label>
                             </div>
                             <div class="col-md-8 my-2">
                                 <input type="text" class="form-control" name="harga" id="harga" placeholder="Harga Satuan/set" >
                                 <?php echo form_error('harga', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
+                            </div>
+                            <div class="col-md-4">
+                                <label for="warna">Warna</label>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <select name="warna" id="warna" class="form-control" required>
+                                    <?php foreach ($warna as $data) : ?>
+                                        <option value="<?= $data->id_warna ?>"><?= $data->nama_warna ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php echo form_error('warna', '<div class="alert alert-danger" role="alert">', '</div>') ?>    
                             </div>
                             <div class="col-md-4">
                                 <label for="foto_brg">Foto Produk</label>
@@ -258,6 +312,13 @@
                     $('#jenis_brg option:contains("'+data.jenis_brg+'")').prop('selected', true);
                     $('#jumlah').val(data.stok);
                     $('#harga').val(data.harga);
+                    $('#harga_permeter').val(data.harga_permeter);
+                    $('#tinggi').val(data.tinggi);
+                    $('#lebar').val(data.lebar);
+                    $('#rak').val(data.rak);
+                    $('#laci').val(data.laci);
+                    $('#warna').val(data.warna);
+                    $('#jml_pintu').val(data.jml_pintu);
                     $('#deskripsi').val(data.deskripsi);
                     $('#previewImage').attr('src', './foto_produk/' + data.foto_brg);
                     console.log(data)

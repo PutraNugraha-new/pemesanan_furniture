@@ -111,8 +111,11 @@
             <div class="col-4">
                 <label for="warna" class="mb-4">Warna</label>
                 <select name="warna" id="warna" class="form-control mt-1">
-                    <option value="Merah">Merah</option>
-                    <option value="Biru">Biru</option>
+                    <?php  foreach ($warna as $color): ?>
+                        <option value="<?= $color->id_warna ?>">
+                            <?= $color->nama_warna ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="col-4">
